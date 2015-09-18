@@ -46,7 +46,7 @@ include 'include/meta.inc.php';
 <?php
 connect();
 mysql_select_db('matys_baza');
-
+$how_much_rows = 0;
 if (isset($_SESSION['user_id']))
 if (isset($_GET['book_id']))    
 if (!empty($_GET['book_id']))      
@@ -66,10 +66,10 @@ if (!empty($_GET['book_id']))
     {
         $user_id = filter_var($_SESSION['user_id'], FILTER_SANITIZE_STRING);
     }
-    $query = 'SELECT user_id FROM orders';
+    $query = "SELECT user_id FROM orders WHERE user_id=$user_id";
     $result = mysql_query($query) or die (mysql_error());
     $how_much_rows = mysql_num_rows($result);
-    $query = "SELECT user_id FROM borrowed_books";
+    $query = "SELECT user_id FROM borrowed_books WHERE user_id=$user_id";
     $result = mysql_query($query) or die (mysql_error());
     $how_much_rows_borrowed = mysql_num_rows($result);
     $how_much_rows += $how_much_rows_borrowed; //counting books

@@ -612,6 +612,7 @@ if (isset($_SESSION["logged"]))
 }
 else echo "You don't have permissions";
 disconnect();
+error_reporting();
  ?>
 
 

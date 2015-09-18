@@ -66,7 +66,7 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
             {
                 if (($_SESSION["ifadded"]) == ($_POST['login'].$_POST['password'].$_POST['password1'].$_POST['email'].$_POST['email1'])) 
                 {
-                    echo "you have added once";
+                    echo "you have already added!";
                     exit;
 
                 }
@@ -125,8 +125,7 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
                 }
                 else echo 'database error';
                    
-            } 
-            else echo "wrong email format";
+            } else echo "wrong email format";
 
         } else echo "fields password and password1, email and email1 must be same";
     } else echo "there are empty fields";
@@ -143,7 +142,7 @@ if (isset($_GET["activation_code"]))
 		 permissions = 2
 		 WHERE activation_code = '$activation_code'";
 	 $result = mysql_query($query) or die (mysql_error());
-	 if (mysql_query($query) != NULL) echo "you are registered";
+	 if (mysql_query($query) != NULL) echo "you are registered please re login! ";
 	 else echo "error";
 
 
