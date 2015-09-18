@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/local/php53/bin/php-cgi -c /usr/local/php53/php.ini \

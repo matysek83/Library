@@ -1,0 +1,578 @@
+@font-face {font-family: 'Museo-300';src: url('webfonts/2EFF40_0_0.eot');src: url('webfonts/2EFF40_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2EFF40_0_0.woff2') format('woff2'),url('webfonts/2EFF40_0_0.woff') format('woff'),url('webfonts/2EFF40_0_0.ttf') format('truetype');}
+/*<![CDATA[*/
+*
+{
+	padding: 0;
+	margin: 0;
+	border: 0px;
+	font-size: 13px;
+}
+body
+{
+	background-image: url('obrazki/tlo_strony.jpg');
+	background-attachment: fixed;
+	/*background-repeat: repeat-x;
+	background-color: #64646c;*/
+}
+a
+{
+        font-family: 'museo-300';
+	color: teal;
+	text-decoration:none;
+}
+p
+{
+        font-family: 'museo-300';
+	text-align:justify;
+}
+#kontener
+{
+	width: 1300px;
+	margin: 0 auto;
+
+}
+#gorna_czesc_kontenera
+{
+	position: relative;
+	margin-top: 0px;
+	background-image: url('obrazki/banner.gif');
+	width: 1300px;
+	height: 150px;
+}
+/* Panel */
+#panel
+{
+	font-family: 'museo-300';
+	margin-top: 10px;
+	border: 1px solid #0f3250;
+	width: 1300px;
+	height: 74px;	
+	background-color: #325a8a;
+	text-align: left;
+}
+#formularz
+{
+	float:left;
+	clear:left;
+	width: 400px;
+	margin-top: 5px;
+}
+
+input
+{
+    font-family: 'museo-300';
+    border: 2px solid #ECECEC;
+}
+
+input:hover{
+    cursor: pointer;
+    border: 2px solid blue;
+}
+input .inp
+{
+	background-color:#ececec;
+	font-family: 'museo-300';
+        font-size:9px;
+}
+#komunikaty
+{
+margin-bottom: 5px;
+}
+#zegar
+{
+font-family: 'museo-300';
+margin-top: 8px;
+float:right;
+clear:right;
+}
+
+/* MENU */
+#srodkowe_menu 
+{
+	background-image: url('obrazki/srodkowe_menu.gif');
+	width: 1300px;
+	height: 32px;
+	
+}
+#srodkowe_menu li
+{
+        font-family: 'museo-300';
+	list-style-type: none;
+	float: left;	
+}									
+#srodkowe_menu li a
+{
+        
+	display: inline-block;
+	border-bottom: none;
+	color: #C7C7D4;
+	font-size: 13px;
+	font-family: 'museo-300';
+	font-weight: bold;
+	font-style: italic;
+}
+#srodkowe_menu li span.link2
+{
+	display: block;
+	margin-top: 7px;
+}
+#srodkowe_menu #pierwszy_poziom
+{
+	margin-left: 50px;
+}
+#srodkowe_menu span.odstepik
+{
+	display:inline-block;
+	margin: 5px 10px 0px 10px;
+	color: #C7C7D4;
+}
+#srodkowe_menu li a:hover
+{
+	color: white;
+}
+/* MENU ROZWIJANE */
+
+#pierwszy_poziom li .drugi_poziom
+{
+	display:none;
+}
+
+#pierwszy_poziom li:hover .drugi_poziom
+{
+	
+	display: block;
+	width: 160px;
+}
+
+#pierwszy_poziom li .drugi_poziom li
+{
+	width: 100px;
+	text-align: left;
+}
+#pierwszy_poziom li
+{
+	position: relative;
+}
+#pierwszy_poziom li .drugi_poziom
+{
+	position: absolute;
+	top: 1.9em;
+	left: 0em;
+}
+#pierwszy_poziom > li
+{
+	height: 32px;
+}
+#pierwszy_poziom li .drugi_poziom
+{
+	background-color: #0F3250;
+	border-left: 4px solid gray;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+#pierwszy_poziom li .drugi_poziom li
+{
+	margin-left: 30px;
+	border-top: 1px solid #CCCCCC;
+}
+#pierwszy_poziom li .drugi_poziom li a
+{
+	display: block;
+	width: 100px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+#pierwszy_poziom li .drugi_poziom li a:hover
+{
+	background-color: #CCCCCC;
+	padding-left: 20px;
+	margin-left: -20px;
+	padding-right: 20px;
+	margin-top: -1px;
+	border-top: 1px solid #CCCCCC;
+	color: black;
+}
+#pierwszy_poziom li .drugi_poziom li a
+{
+	font-family: 'museo-300';
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+}
+#pierwszy_poziom li .drugi_poziom li.pierwszy_element_menu
+{
+	margin-top: 5px;
+}
+/* ZAWARTOŚĆ GŁÓWNA STRONY */
+#zawartosc
+{
+	width: 1300px;
+	
+}
+#gorna_czesc_zawartosci
+{
+	background-image: url('obrazki/gorna_czesc_zawartosci.gif');
+	width: 1300px;
+	height: 17px;
+}
+#srodkowa_czesc_zawartosci
+{
+	background-image: url('obrazki/srodkowa_czesc_zawartosci.gif');
+	width: 1300px;
+	background-repeat: repeat-y;
+}
+
+#dolna_czesc_zawartosci
+{
+	background-image: url('obrazki/dolna_czesc_zawartosci.gif');
+	width: 1300px;
+	height: 31px;
+}
+#tekst
+{
+	text-align:justify;
+	padding: 10px 10px;
+	line-height: 140%;
+	font: 13px;// Arial, Ubuntu, "Lucida Console", Helvetica, sans-serif; 
+        font-family: 'museo-300';
+    line-height: 1.4;
+    width: 1200px; /* tu wysokosc elementu */
+overflow-x:auto;
+	
+}
+
+h1
+{
+	font-size: 28px;
+	text-align: center;
+	margin-bottom: 22px;
+	margin-top: 20px;
+	font-family: 'museo-300';
+	font-style: italic;
+	
+}
+h2
+{
+	font-size: 25px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-family: 'museo-300';
+	font-style: italic;
+	
+}
+h3
+{
+	color: black;
+	font-size: 18px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	font-family: 'museo-300';
+	font-style: italic;	
+	
+}
+h4
+{
+	margin-bottom: 10px;
+	text-align: center;
+}
+h5
+{
+	font-size: 18px;
+	font-weight: bold;
+}
+#stopka
+{
+	margin-top: 10px;
+	margin-bottom: 5px;
+	color: white;
+	font-family: 'museo-300';
+	font-size: 10px;
+}
+.images img
+{
+	width:250px; 
+	height:250px; 
+	margin:5px; 
+	padding:3px;
+}
+#obrazki
+{
+	clear:right;
+	float:right;
+	width:250px; 
+	height:250px; 
+	margin:5px; 
+	padding:3px;
+}
+
+#tekst ul
+{
+	margin: 20px;
+	margin-left: 20px;
+	list-style-image: url('obrazki/ol1.jpg');
+}
+/*td
+{
+text-align: center;	
+}
+td.obramowanie
+{
+	border: 1px solid black;
+}
+*/
+p.akapit
+{
+	margin-left:20px;
+}
+p.akapit2
+{
+	margin-left:40px;
+}
+font.akapit
+{
+	margin-left:20px;
+}
+font.akapit2
+{
+	margin-left:40px;
+}
+font.kod
+{
+	font-family: 'museo-300';
+}
+
+input.inp
+{
+	cursor: pointer;
+	background-color:#0f3250;
+	font-family: 'museo-300';
+	font-size:12px;
+	padding: 2px;
+	margin: 3px;
+	border: 0px solid white;
+	font-weight: bold;
+	color: white;
+}
+input.inp1
+{
+	background-color:#0f3250;
+	font-size:12px;
+	padding: 2px;
+	margin: 3px;
+	color: white;
+}
+#formularz_kontaktowy
+{
+	width: 450px;
+	margin: 0 auto;
+}
+/*KSIĘGA GOŚCI*/
+.styl 
+{
+ font-size :  12px; 
+ color : black; 
+ font-family: 'museo-300';
+ text-align : center; 
+ line-height: 150%;
+ }
+
+input.ksiega
+{
+cursor: pointer;
+background-color:#d4d4d4;
+font-family: 'museo-300';
+font-size:18px;
+padding: 10px;
+margin: 10px;
+border: 1px solid black;
+font-weight: bold;
+}
+.cbalink 
+{
+display:none;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+#przycisk{
+padding: 5px;
+border: 1px solid blue;
+background-color: yellow;
+}
+
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+
+
+
+
+
+
+/* tabela responsywna */
+
+table
+{
+    width: 100%;
+}
+
+@media screen and (max-width: 64em)
+{
+    .adminbooks th:nth-child(5),
+    .adminbooks th:nth-child(6),
+    .adminbooks td:nth-child(5),
+    .adminbooks td:nth-child(6)
+    {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 48em)
+{
+    .adminbooks th:nth-child(1),
+    .adminbooks th:nth-child(2),
+    .adminbooks th:nth-child(7),
+    .adminbooks td:nth-child(1),
+    .adminbooks td:nth-child(2),
+    .adminbooks td:nth-child(7)
+    {
+        display: none;
+    }
+}
+
+  /* clear fix  */
+
+/*
+@media screen and (max-width: 64em)
+{
+.cf:after
+{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .cf
+{
+    zoom: 1;
+}
+
+*:first-child + html .cf
+{
+    zoom: 1;
+}
+}
+*/
+/* flip scroll table */
+/*
+.flip-scroll table
+{
+    width: 100%;
+    display: block;
+    position: relative;
+    border-collapse: collapse;
+    border-spacing: 0;  
+}
+
+.flip-scroll thead
+{
+    display: block;
+    float: left;
+}
+
+.flip-scroll thead tr
+{
+    display: block;
+}
+
+.flip-scroll th
+{
+    display: block;
+    text-align: right;
+}
+
+.flip-scroll tbody
+{
+    display:block;
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+    
+}
+
+.flip-scroll tbody tr
+{
+    display: inline-block;
+    vertical-align: top;
+    
+}
+
+.flip-scroll td
+{
+    display: block;
+    min-height: 1.25em;
+    text-align: left;
+}
+}
+
+*/
+/*
+@media screen and (max-width: 64em)
+{
+    .table-to-list table,
+    .table-to-list thead,
+    .table-to-list tbody,
+    .table-to-list th,
+    .table-to-list td,
+    .table-to-list tr
+    {
+        display:block;
+    }
+    
+    table-to-list thead tr
+    {
+       position: absolute; 
+       top: -9999px;
+       left: -9999px;
+       
+    }
+    table-to-list tr
+    {
+        border: 1px solid #000;
+    }
+    
+    table-to-list td
+    {
+        position: relative;
+        padding-left: 50%;
+        border: none;
+        border-bottom: 1px solid #eee;
+        white-space: normal;
+        text-align: left;
+    }
+    
+    table-to-list td:before
+    {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        
+        content: attr(data-tilte);
+        
+    }
+}
+
+*/

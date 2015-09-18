@@ -1,0 +1,32 @@
+Pierwszy nick
+Pierwszy tekst
+Drugi Nick
+Drugi tekst
+Trzeci Nick
+Trzeci tekst
+Czwarty Nick
+Czwarty tekst
+Piąty Nick
+Piąty tekst
+Szósty Nick
+Szósty tekst
+Siódmy Nick
+Siódmy tekst
+ósmy Nick
+ósmy tekst
+dziewiąty Nick
+dziewiąty tekst
+dziesiąty Nick
+dziesiąty tekst
+jedenasty Nick
+jedenasty tekst
+maria
+cześć Jestem Maria
+
+
+
+Przykładowy tekst
+nickname
+Message
+Matys
+Przykładowa wiadomość
