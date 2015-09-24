@@ -60,29 +60,15 @@ include "include/meta.inc.php";
 if (isset($_SESSION['logged']))
 $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
-if (isset($_GET['sortby']))
+function clean($var, $name)
 {
-$_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
-$_SESSION['sortby'] = $_GET['sortby'];
-$sortby = $_SESSION['sortby'];
-$sortby = mysql_real_escape_string($sortby);
-}
-
-
-if (isset($_GET['dir']))
-{
-$_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
-$_SESSION['dir'] = $_GET['dir'];
-$dir = $_SESSION['dir'];
-$dir = mysql_real_escape_string($dir);
-}
-
-
-if (isset($_GET['page']))
-{
-$_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
-$_SESSION['page'] = $_GET['page'];
-$page = $_SESSION['page'];
+    if (isset($_GET[$var]))
+    {
+        $_GET[$var] = filter_var($_GET[$var], FILTER_SANITIZE_STRING);
+        $_SESSION[$var] = $_GET[$var];
+        $name = $_SESSION[$var];
+        $name = mysql_real_escape_string($name);
+    }
 }
 
 
@@ -93,7 +79,36 @@ if (isset($_SESSION["logged"]))
     {
         connect();
         $wyborbazy = mysql_select_db("matys_baza");
+        clean('sortby', $sortby);
+        clean('dir', $dir);
+        clean('page', $page);
+        
+        /*
+        if (isset($_GET['sortby']))
+        {
+            $_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
+            $_SESSION['sortby'] = $_GET['sortby'];
+            $sortby = $_SESSION['sortby'];
+            $sortby = mysql_real_escape_string($sortby);
+        }
 
+
+        if (isset($_GET['dir']))
+        {
+            $_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
+            $_SESSION['dir'] = $_GET['dir'];
+            $dir = $_SESSION['dir'];
+            $dir = mysql_real_escape_string($dir);
+        }
+
+
+        if (isset($_GET['page']))
+        {
+            $_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
+            $_SESSION['page'] = $_GET['page'];
+            $page = $_SESSION['page'];
+        }
+        */
         $query = "SELECT * from table_books
                   ";
 

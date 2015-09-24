@@ -7,7 +7,7 @@ include "include/meta.inc.php";
 include "webstats2.php";
 ?>
 
-<title>Pasje.biz - Kontakt</title>
+<title>PHP Library</title>
 	</head>
 	<body>
 	  <div align="center">

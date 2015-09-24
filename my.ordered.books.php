@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include_once  'include/meta.inc.php';
 ?>
 
-<title>Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
+<title>PHP Library</title>
 
 </head>
 <body onload="zegar();">
@@ -42,24 +42,28 @@ include_once  'include/meta.inc.php';
 				<div id="gorna_czesc_zawartosci"></div>
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
-                                            <table border='1' style='float: left; '>
-                                                <tr>
-                                                    <th>LP.</th>
-                                                    <th>Order ID</th>
-                                                    <th>Book ID</th>
-                                                    <th>Book name</th>
-                                                    <th>Author</th>
-                                                    <th>Date of order</th>
-                                                    <th>Availability</th>
-                                                    <th>OPTIONS</th>
-                                                    
-                                                </tr>
+                                            
                                             
                                             <?php
 connect();
 $choose_database = mysql_select_db("matys_baza");
 if (isset($_SESSION['user_id']))
 {
+    
+    echo "<p> Ordered books: </p>
+        <table border='1' style='float: left; '>
+            <tr>
+                <th>LP.</th>
+                <th>Order ID</th>
+                <th>Book ID</th>
+                <th>Book name</th>
+                <th>Author</th>
+                <th>Date of order</th>
+                <th>Availability</th>
+                <th>OPTIONS</th>
+
+            </tr>";
+    
     $user_id = $_SESSION['user_id'];
     if (isset($_GET['book_id']))
     {
@@ -96,7 +100,7 @@ if (isset($_SESSION['user_id']))
 
     }
     echo "</table><br /><br />";
-    echo "<br><br>";
+    echo "<br /><br />Borrowed books: ";
     $query = "SELECT borrowed_id, t.book_id, book_name, author, date_borrowed_book FROM borrowed_books b RIGHT JOIN table_books t ON t.book_id=b.book_id WHERE user_id=$user_id AND availability=0 LIMIT 5";
     $result = mysql_query($query) or die (mysql_error()); 
     echo "<table border='1' style='float: left;'>

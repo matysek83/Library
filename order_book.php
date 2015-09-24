@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include 'include/meta.inc.php';
 ?>
 
-<title>Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
+<<title>PHP Library</title>
 
 </head>
 <body onload="zegar();">

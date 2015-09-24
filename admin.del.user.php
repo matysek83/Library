@@ -1,5 +1,5 @@
-<?
-include_once 'include/session.start.inc.php';
+<?php
+include_once 'include/start.sesji.inc.php';
 ?>
 <!--metatagi, kodowanie, skrypt google analitics-->
 <?php
@@ -13,8 +13,9 @@ include "include/meta.inc.php";
 	<div align="center">		
 		<div id="kontener">
 			<div id="panel">
-				<div id="formularz"><?include_once 'include/login.user.php';	?>
+				<div id="formularz"><?include_once 'include/logowanie.inc.php';	?>	
 		
+
 				
 				
 				
@@ -34,7 +35,7 @@ include "include/meta.inc.php";
 		
 		<!--środkowe menu-->
 		<?php
-		include "include/middle.menu.inc.php";
+		include "include/srodkowe.menu.inc.php";
 		?>
 		<!-- koniec div srodkowe menu-->
 		
@@ -42,34 +43,26 @@ include "include/meta.inc.php";
 				<div id="gorna_czesc_zawartosci"></div>
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
+						<?php
+
 						
-<?
-$user_id = filter_var($_SESSION['user_id'], FILTER_SANITIZE_NUMBER_INT);
-
-if (isset($_GET['book_id']))  
-if (!empty($_GET['book_id']))
-{
-    
-$book_id = filter_var($_GET['book_id'], FILTER_SANITIZE_NUMBER_INT);
-
-    connect();
-    $query = "INSERT INTO orders (user_id, book_id)
-        VALUES ($user_id, $book_id)
-            ";
-            
-    
-    
-    
-    
-    
-    
-    disconnect();
-}
+						connect();
 
 
+						$choosebase = mysql_select_db("matys_baza");
 
+						$delete_id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+						$query = "DELETE IGNORE FROM users
+								WHERE
+								id = '$delete_id'
 
-?>
+							";
+						echo "usunięto wpis o id: ".$delete_id;
+						mysql_query($query) or die(mysql_error());
+
+						disconnect();
+						error_reporting(E_ALL);
+						?>
 					</div>
 					
 					

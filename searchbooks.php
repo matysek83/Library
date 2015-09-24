@@ -7,7 +7,7 @@ include 'include/meta.inc.php';
 
 ?>
 
-<title>Pasje.biz - Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
+<title>PHP Library</title>
 
 </head>
 <body onload="zegar();">
@@ -397,7 +397,7 @@ if (isset($_SESSION['searchname']))
                 {
                     if (isset($_SESSION['logged']))
                     {
-                        if (($_SESSION["logged"] == 2) || ($_SESSION["logged"] == 3))
+                        if (($_SESSION["logged"] == 2))
                         {
                             echo "<a href='order_book.php?book_id=$book_id'> | Order</a>";    
                         }
@@ -473,7 +473,7 @@ if (isset($_SESSION['searchname']))
                 {
                     if (isset($_SESSION['logged']))
                     {
-                        if (($_SESSION["logged"] == 2) || ($_SESSION["logged"] == 3))
+                        if (($_SESSION["logged"] == 2))
                         {
                            echo "<a href='order_book.php?book_id=$book_id'> | Order</a>";            
 

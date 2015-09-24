@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/my.ordered.books.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/order_book.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.check.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.add.book.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.borrowed.books.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.if.add.book.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/include/login.user.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/registration.php</file>
         </group>
     </open-files>
 </project-private>

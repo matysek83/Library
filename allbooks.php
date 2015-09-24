@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include "include/meta.inc.php";
 ?>
 
-<title>Pasje.biz - Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
+<title>PHP Library</title>
 
 </head>
 <body onload="zegar();">
@@ -44,9 +44,28 @@ include "include/meta.inc.php";
 					<div id="tekst">
                                             <div style="text-align: center;">
 <?php
+function clean($var, $name)
+{
+    if (isset($_GET[$var]))
+    {
+        $_GET[$var] = filter_var($_GET[$var], FILTER_SANITIZE_STRING);
+        $_SESSION[$var] = $_GET[$var];
+        $name = $_SESSION[$var];
+        $name = mysql_real_escape_string($name);
+    }
+}
+
 if (isset($_SESSION['logged']))
 $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
+connect();
+$wyborbazy = mysql_select_db("matys_baza");
+
+clean('sortby', $sortby);
+clean('dir', $dir);
+clean('page', $page);
+
+/*
 if (isset($_GET['sortby']))
 {
 $_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
@@ -70,7 +89,7 @@ if (isset($_GET['page']))
 $_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
 $_SESSION['page'] = $_GET['page'];
 $page = $_SESSION['page'];
-}
+}*/
 
 if (isset($_SESSION['user_id']))
 {
@@ -78,8 +97,7 @@ if (isset($_SESSION['user_id']))
 }
 
 
-connect();
-$wyborbazy = mysql_select_db("matys_baza");
+
 
 $query = "SELECT * from table_books
           ";
@@ -337,10 +355,10 @@ else
                 $dir = $_SESSION['dir'];
                 $sortby = mysql_real_escape_string($sortby);
                 $dir = mysql_real_escape_string($dir);
-                $query = "SELECT DISTINCT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
+                $query = "SELECT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
             }
             
-            else $query = "SELECT DISTINCT * from table_books LIMIT 10 OFFSET $i";
+            else $query = "SELECT * from table_books LIMIT 10 OFFSET $i";
              //$query = "SELECT * from table_books ORDER BY book_name DESC LIMIT 10 OFFSET $i";
 
             if ($how_much_loops >= 10) break;
@@ -374,7 +392,7 @@ else
             {
                 if (isset($_SESSION['logged']))
                 {
-                    if (($_SESSION["logged"] == 2) || ($_SESSION["logged"] == 3))
+                    if (($_SESSION["logged"] == 2))
                     {
                         echo "<a href='order_book.php?book_id=$book_id'> | Order</a>";
                         
@@ -450,7 +468,7 @@ else
                 {
                     if (isset($_SESSION['logged']))
                     {
-                        if (($_SESSION["logged"] == 2) || ($_SESSION["logged"] == 3))
+                        if (($_SESSION["logged"] == 2))
                         {
                             echo "<a href='order_book.php?book_id=$book_id'> | Order</a>";
                         }
@@ -469,75 +487,75 @@ else
       
        // Numeracja dolna
        if (isset($_GET['page']))
-           {
-               $a = 1;
-               $two = 2;
-               $next_page = $page+1;
-               $previous_page = $page-1;
-               if (($page)<=$num_of_pages)
-               {
-                   echo "</tr></table>";
-                    if ($_GET['page'] >= 2)
-                    {
-                        echo "<a href='allbooks.php?page=$previous_page'> < </a> ";
-                    }
-                }
-
-
-                for ($i=1; $i<=$num_of_pages; $i++)
-                {
-                    if ($_GET['page'] == $i)
-                    echo "<a href='allbooks.php?page=$i'> <b>$i</b> </a> ";
-                    else
-                       echo "<a href='allbooks.php?page=$i'> $i </a> "; 
-                    if ($i==50*$a)
-                    {
-                        echo "br/>";
-                        $a++;
-                    }
-                }
-
-                if (($_GET['page'])>=1 )
-                {
-
-                    if ($num_of_pages > ($_GET['page']))
-                    {
-                        echo "<a href='allbooks.php?page=$next_page'> > </a> ";
-                    }
-                }
-
-                 if (($_GET['page']) == NULL)
-                    {
-                        if ($num_of_pages > 1)
-                        echo "<a href='allbooks.php?page=$two'> > </a> ";
-                    }
-                    echo "</div>";
-            }
-            
-            else
+        {
+            $a = 1;
+            $two = 2;
+            $next_page = $page+1;
+            $previous_page = $page-1;
+            if (($page)<=$num_of_pages)
             {
-                
-                $next_page = 2;
-                $num_of_pages = ceil($counter/10);
-                $two = 2;
-                $a = 1;
-                for ($i=1; $i<=$num_of_pages; $i++)
-                {
-                    if ($i == 1)
-                    echo "<a href='allbooks.php?page=$i'> <b>$i</b> </a> ";   
-                    else echo "<a href='allbooks.php?page=$i'> $i </a> ";
-                    if ($i==50*$a)
-                    {
-                        echo "br/>";
-                        $a++;
-                    }
-                }
+                echo "</tr></table>";
+                 if ($_GET['page'] >= 2)
+                 {
+                     echo "<a href='allbooks.php?page=$previous_page'> < </a> ";
+                 }
+             }
 
-                if ($num_of_pages > 1)
+
+             for ($i=1; $i<=$num_of_pages; $i++)
+             {
+                 if ($_GET['page'] == $i)
+                 echo "<a href='allbooks.php?page=$i'> <b>$i</b> </a> ";
+                 else
+                    echo "<a href='allbooks.php?page=$i'> $i </a> "; 
+                 if ($i==50*$a)
+                 {
+                     echo "br/>";
+                     $a++;
+                 }
+             }
+
+             if (($_GET['page'])>=1 )
+             {
+
+                 if ($num_of_pages > ($_GET['page']))
+                 {
+                     echo "<a href='allbooks.php?page=$next_page'> > </a> ";
+                 }
+             }
+
+              if (($_GET['page']) == NULL)
+                 {
+                     if ($num_of_pages > 1)
+                     echo "<a href='allbooks.php?page=$two'> > </a> ";
+                 }
+                 echo "</div>";
+         }
+
+         else
+         {
+                
+            $next_page = 2;
+            $num_of_pages = ceil($counter/10);
+            $two = 2;
+            $a = 1;
+            for ($i=1; $i<=$num_of_pages; $i++)
+            {
+                if ($i == 1)
+                echo "<a href='allbooks.php?page=$i'> <b>$i</b> </a> ";   
+                else echo "<a href='allbooks.php?page=$i'> $i </a> ";
+                if ($i==50*$a)
                 {
-                    echo "<a href='allbooks.php?page=$next_page'> > </a> ";
+                    echo "br/>";
+                    $a++;
                 }
-            } 
+            }
+
+            if ($num_of_pages > 1)
+            {
+                echo "<a href='allbooks.php?page=$next_page'> > </a> ";
+            }
+        } 
          echo "</div>";
 }
 // Przycisk odśwież

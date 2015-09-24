@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include_once  'include/meta.inc.php';
 ?>
 
-<title>Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
+<title>PHP Library</title>
 
 </head>
 <body onload="zegar();">
@@ -48,7 +48,7 @@ include_once  'include/meta.inc.php';
                                             PASSWORD1: <input type="password" size="30" maxlength="40" name="pass1" /><br /><br />
                                             EMAIL: <input type="text" size="30" maxlength="40" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"/><br /><br />
                                             EMAIL1: <input type="text" size="30" maxlength="40" name="email1" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; ?>"/><br /><br />
-                                            <input type="submit" value=" Wyślij " />
+                                            <input type="submit" value=" Send " />
                                             </form>
                                             
                                             

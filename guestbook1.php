@@ -44,14 +44,14 @@ include "include/meta.inc.php";
 					<div id="tekst">
 					
                                             
-                                            <?
+                                            <?php
 $validator = filter_var($_POST['validator'], FILTER_SANITIZE_STRING);
 if ($validator == "1410")
 {
 $nick = filter_var($_POST['nick'], FILTER_SANITIZE_STRING);
 $contents = filter_var($_POST['contents'], FILTER_SANITIZE_STRING);
 
-echo $nick;
+echo $nick."<br>";
 echo $contents;
 
 

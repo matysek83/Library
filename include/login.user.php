@@ -114,7 +114,7 @@ if ((isset($_POST['login']) && (isset($_POST['password']))) && empty($_SESSION['
     }
 
 
-    else if($_POST['login'] == "admin" && $_POST['password'] == "5b6d17ec44a72ad89728b1ae63a9a646ecb32460059134a3f60d20d39f4e02fef45873502b62a2375430f1bbffd1cc859a7fde35092a17b482985737eb13d1e0")
+    else if($_POST['login'] == "admin" && $_POST['password'] == "a9a215cc816d7095c7ac3293d4a2505e3ffbbf60e363562e4c2428996414706c4559c7708b37ef9a5c89a28156e5ee50fef9a2240713d055bd754903fd721f58")
     {      
         $_SESSION["login"] = $_POST['login'];
         

@@ -18,8 +18,8 @@
 						
                                             <ul class="drugi_poziom">
                                                 <li class="pierwszy_element_menu"><a href="registration.php">Registration</a></li>
-                                                <li><a href="cnc.php">Send activation email</a></li>
-                                                <li><a href="freebsd.php">Change password</a></li>
+                                                <li><a href="forgot.password.php">Forgot password</a></li>
+                                                <li><a href="change.password.php">Change password</a></li>
                                             </ul>
 						</li>
 					<li><span class="odstepik">: - :</span></li>

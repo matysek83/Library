@@ -3,7 +3,7 @@ include_once 'include/session.start.inc.php';
 ?>
 <!--metatagi, kodowanie, skrypt google analitics-->
 <?php
-include 'include/meta.inc.php';
+include_once  'include/meta.inc.php';
 ?>
 
 <title>Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
@@ -13,7 +13,7 @@ include 'include/meta.inc.php';
 	<div align="center">		
 		<div id="kontener">
 			<div id="panel">
-				<div id="formularz"><?php include_once 'include/login.user.php';?>
+				<div id="formularz"><?php include_once 'include/login.user.php'; ?>
 		
 				
 				
@@ -34,7 +34,7 @@ include 'include/meta.inc.php';
 		
 		<!--środkowe menu-->
 		<?php
-		include "include/middle.menu.inc.php";
+		include_once 'include/middle.menu.inc.php';
 		?>
 		<!-- koniec div srodkowe menu-->
 		
@@ -42,36 +42,37 @@ include 'include/meta.inc.php';
 				<div id="gorna_czesc_zawartosci"></div>
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
-                                            
-<?php
+						<?php
 if (isset($_GET['page']))
 $_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
-$plik = 'dane.txt';
-        $wskaznik = @fopen($plik, "r+");
-        $licznik = 0;
-            while ($linia = (fgets($wskaznik)))
-            {
-                $licznik++;
-            }
+$plik = "dane.txt";
+$wskaznik = @fopen($plik, "r");
+$licznik = 0;
+if ($wskaznik)
+{
+    while ($linia = (fgets($wskaznik)))
+    {
+        $licznik++;
+    }
 
-            $ilosc_stron = ceil($licznik/10);
-            if (($_GET['page'] > $ilosc_stron) )
-            {
-                echo "Taka strona nie istnieje!";
-                exit;
-            }
-			
-			
-			if ($_GET['page']!=NULL)
-			if (!is_numeric($_GET['page']))
-			{
-                echo "Taka strona nie istnieje!";
-                exit;
-            }
-			
-			
-                rewind($wskaznik)
+    $ilosc_stron = ceil($licznik/10);
+    if (($_GET['page'] > $ilosc_stron) )
+    {
+        echo "Taka strona nie istnieje!";
+        exit;
+    }
 
+
+        if ($_GET['page']!=NULL)
+        if (!is_numeric($_GET['page']))
+        {
+            echo "Taka strona nie istnieje!";
+            exit;
+        }		
+    rewind($wskaznik);
+}
+else echo "empty file!";
+fclose($wskaznik);
 ?>            
                                             
                                             
@@ -81,74 +82,81 @@ $plik = 'dane.txt';
         <input type="text" name="validator" value="rok bitwy pod grunwaldem">
         <textarea name="contents" cols="30" rows="5">Message</textarea>
         <input type="submit" value=" Send "/>
-        </form>
-        <table border="1" align="center" cellspacing="5">
+        </form><br><br>
         <?php
 
-        
+echo "<table border='1' align='center' cellspacing='1'>";        
         
         
         
 $plik = "dane.txt";
 $wskaznik = @fopen($plik, "r+");
-//$tresc = fread($wskaznik, filesize($plik));
-filter_var($_GET['page'], FILTER_SANITIZE_STRING);
-
-if ($_GET['page']==0 || $_GET['page']==1 || empty($_GET['page']))
+if ($wskaznik)
 {
-    $ile_petli = 0;
-    $tablica = file($plik);
-    for ($i=0; $i<count($tablica); $i+=2)
+    //$tresc = fread($wskaznik, filesize($plik));
+    filter_var($_GET['page'], FILTER_SANITIZE_STRING);
+
+    if ($_GET['page']== '0' || $_GET['page']== '1' || empty($_GET['page']))
     {
-        if ($ile_petli >= 5) break;
-        echo "<tr><td>".($ile_petli+1)." nick </td><td>".$tablica[$i]."</td></tr>";
-        echo "<tr><td>".($ile_petli+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
+        $ile_petli = 0;
+        $tablica = file($plik);
+        for ($i=0; $i<=count($tablica); $i+=2)
+        {
+            if (empty($tablica)) break;
+            if ($ile_petli >= 5) break;
+            if ($ile_petli>=$tablica) break;
+            if ($tablica[$i+1] == '') break;
+            echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i+1]."</td></tr>";
+            echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+2]."</td></tr>";
+            $ile_petli++;
+        }
+        echo "</table>";
+    }
+
+
+
+    //obliczanie ilości stron
+    $licznik = 0;
+    while ($linia = (fgets($wskaznik)))
+    {
+        $licznik++;
+    }
+    $ilosc_stron = ceil($licznik/10);
+    $odktorego = ((($_GET['page'])*10)-10);
+    $doktorego = $odktorego+9;
+
+
+    if (($_GET['page'])>=2)
+    {
+        $ile_petli = 0;
+
+        $tablica = file($plik);
+        for ($i = $odktorego; $i<=$doktorego; $i+=2)
+        {
+        if ($i>=$licznik) break;
+        if ($ile_petli >=5 ) break;
+        if ($tablica[$i+1] == '') break;
+        echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
+        echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
         $ile_petli++;
+        }
+    echo "</table>";
     }
 }
-
-
-
-//obliczanie ilości stron
-$licznik = 0;
-while ($linia = (fgets($wskaznik)))
-{
-    $licznik++;
-}
-
-$ilosc_stron = ceil($licznik/10);
-$odktorego = ((($_GET['page'])*10)-10);
-$doktorego = $odktorego+9;
-
-
-if (($_GET['page'])>=2)
-{
-    $ile_petli = 0;
-
-    $tablica = file($plik);
-    for ($i = $odktorego; $i<=$doktorego; $i+=2)
-    {
-    if ($i>=$licznik) break;
-    if ($ile_petli >5) break;
-    echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
-    echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
-    $ile_petli++;
-    }
-
-}
-echo "</table>"  ;  
-
+else echo "File not exists"  ;
+echo "<br><br>";
 
        
        //strzalki przód i tył
        $dwa = 2;
        $strona_nastepna = $_GET['page']+1;
        $strona_poprzednia = $_GET['page']-1;
+       
        if (($_GET['page'])<=$ilosc_stron)
        {
             if ($_GET['page'] >= 2)
             {
-                echo "<a href='index.php?page=$strona_poprzednia'> < </a> ";
+                echo "<a href='guestbook.php?page=$strona_poprzednia'> < </a> ";
             }
         }
                 
@@ -165,7 +173,7 @@ echo "</table>"  ;
             }
         }
 
-         if (($_GET['page']) == NULL)
+         if (empty($_GET['page']))
             {
                 if ($ilosc_stron > 1)
                 echo "<a href='guestbook.php?page=$dwa'> > </a> ";
@@ -181,19 +189,14 @@ echo "</table>"  ;
         fclose($wskaznik);
 
         ?>
-                                            
-                                            
-                                            
-                                            
-                                            
+					</div>
 					
-        		
 					
-				
+				</div>
 				<!--koniec div srodkowa czesc zawartosci-->
 				<div id="dolna_czesc_zawartosci"></div>
 			
-			
+			</div>
 		
 		<div id="stopka">
 			&copy; 2015  created by Matys
