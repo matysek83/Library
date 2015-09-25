@@ -63,13 +63,14 @@ if (isset($_POST['emailforpassword']) && isset($_POST['validation']))
         if ($_POST['validation'] == '13' && isset($emailforpassword))
         {
             $select = mysql_select_db("matys_baza");
-            $query = "SELECT activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";
+            $query = "SELECT login, activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";
             $result = mysql_query($query) or die (mysql_error());
             $row = mysql_fetch_assoc($result);
             $activation_code = $row['activation_code'];
+            $login = $row['login'];
             
             
-            $contents = "Tap link to change password: <a href='http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code'>http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code</a>"; 
+            $contents = "Hi $login ! Tap link to change password: <a href='http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code'>http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code</a>"; 
             $subject = "Change password: http://matys.jupe24.pl/biblioteka/";
             
             $headlines = "Content-type: text/html; charset=UTF8\r\n".
@@ -85,7 +86,7 @@ if (isset($_POST['emailforpassword']) && isset($_POST['validation']))
         
     }
 }
-
+$login = $row['login'];
 // write new password // chcecking if adde once
 if (isset($_GET['activation_password']))
 {
@@ -97,6 +98,7 @@ if (isset($_GET['activation_password']))
         
         $activation_code = $_GET['activation_password'];
         $_SESSION['activation_password'] = $activation_code;
+        echo "Hi $login!<br>";
         echo "<form action='' method='post' name ='activation_password'>";
         echo "<input type='password' name='newpassword'>";
         echo "<input type='password' name='newpassword1'>";
@@ -130,7 +132,7 @@ if (isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POS
                 $result = mysql_query($query) or die (mysql_error());
                 if ($result)
                 {
-                    echo "You have changed password";
+                    echo "$login You have changed password";
                 }
                 else echo "Error updating database";
             }   
@@ -138,6 +140,7 @@ if (isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POS
     }
 }
     
+
 
 disconnect();                                           
                                             

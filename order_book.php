@@ -42,23 +42,20 @@ include 'include/meta.inc.php';
 				<div id="gorna_czesc_zawartosci"></div>
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
-						
 <?php
 connect();
 mysql_select_db('matys_baza');
 $how_much_rows = 0;
-if (isset($_SESSION['user_id']))
-if (isset($_GET['book_id']))    
-if (!empty($_GET['book_id']))      
-{
+if (isset($_SESSION['user_id']) && isset($_GET['book_id']))
+    if (!empty($_GET['book_id']))
+    {
     $user_id = filter_var($_SESSION['user_id'], FILTER_SANITIZE_STRING);
     if (isset($_SESSION['book_id']))
     if ($_SESSION['book_id'] == $_GET['book_id'])
     {
         echo "you have added once!";
-        header('HTTP/1.1 301 Moved Permanently');
-        header('Location: my.ordered.books.php');
-        exit;
+        
+        
     }
         
     $_SESSION['book_id'] = $_GET['book_id'];
@@ -105,7 +102,7 @@ else echo 'you can add only once!';
 
 disconnect();
 ?>
-					</div>
+                                        </div>
 					
 					
 				</div>

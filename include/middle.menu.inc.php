@@ -3,7 +3,7 @@
 			<ul id="pierwszy_poziom" style="margin-left: 400px;">
 				<li><a href="index.php"><span class="link2">Start</span></a></li>
 					<li><span class="odstepik">: - :</span></li>
-					<li><a href="#"><span class="link2">Baza książek</span></a>
+					<li><a href="#"><span class="link2">Books base</span></a>
                                             <ul class="drugi_poziom">
 							<li class="pierwszy_element_menu"><a href="searchbooks.php">Search books</a></li>
 							<li><a href="allbooks.php">All books</a></li>
@@ -14,7 +14,7 @@
 				
 									
                                         <li><span class="odstepik">: - :</span></li>
-					<li><a href="#"><span class="link2">Opcje</span></a>
+					<li><a href="#"><span class="link2">Settings</span></a>
 						
                                             <ul class="drugi_poziom">
                                                 <li class="pierwszy_element_menu"><a href="registration.php">Registration</a></li>

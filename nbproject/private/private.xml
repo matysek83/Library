@@ -5,11 +5,13 @@
         <group>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/my.ordered.books.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/order_book.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/change.password.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.check.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.add.book.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.borrowed.books.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.if.add.book.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.delete.user.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.user.account.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/include/login.user.php</file>
         </group>
     </open-files>

@@ -55,13 +55,21 @@ if (isset($_SESSION['logged']))
         {
             $user_id = filter_var($_GET['user_id'], FILTER_SANITIZE_STRING);
             if (isset($_GET['book_id']))
-            {
+            { 
                 $book_id = $_GET['book_id'];
                 $query = "DELETE from orders WHERE book_id=$book_id";
                 $result_orders = mysql_query($query) or die (mysql_error());
                 $query = "UPDATE table_books SET availability = 0 WHERE book_id=$book_id";
                 $result_books = mysql_query($query) or die (mysql_error());
             }
+            $query = "SELECT user_id, login, email FROM users WHERE user_id = $user_id";
+            $result = mysql_query($query) or die(mysql_error());
+            $row = mysql_fetch_assoc($result);
+            $login = $row['login'];
+            $email = $row['email'];
+            echo "USER ID: $user_id <br>";
+            echo " LOGIN: $login <br>";
+            echo " EMAIL: $email <br>";
             echo "<h1> Ordered books </h1>";
             echo "<table border='1' style='float: left; '>
             <tr>
@@ -213,8 +221,8 @@ if (isset($_SESSION['logged']))
                         $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                     }
                 }
-                else echo "you have changed already";
-                /*else
+                
+                else
                 {
                    $query = " INSERT INTO returned_books (borrowed_id, book_id, user_id, date_borrowed_book) 
                                    VALUES ($borrowed_id, $book_id, $user_id, '$date_borrowed_book')
@@ -225,7 +233,7 @@ if (isset($_SESSION['logged']))
                     $result_books = mysql_query($query) or die (mysql_error());
                     $query = "DELETE from borrowed_books WHERE book_id=$book_id";
                     $delete_from_borrowed = mysql_query($query) or die (mysql_error()); 
-                }*/
+                }
             }
         }    
         $query = "SELECT b.user_id, borrowed_id, t.book_id, book_name, author, date_borrowed_book FROM (table_books t RIGHT JOIN borrowed_books b ON b.book_id = t.book_id) WHERE b.user_id = $user_id ";
