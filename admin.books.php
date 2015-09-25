@@ -465,7 +465,7 @@ if (isset($_SESSION["logged"]))
                                 echo "<a href='admin.books?borrow_user_id=$user_id'> | Borrow user_id=$user_id</a></td>";  //?????????????????????????????????
                             }
                             else echo "</td>";
-                            echo "<td> <a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='deletebook.php?book_id=$book_id' onclick='return confirm(\"Are you sure to delete?\")'>delete</a></td></tr>";
+                            echo "<td> <a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='admin.deletebook.php?book_id=$book_id' onclick='return confirm(\"Are you sure to delete?\")'>delete</a></td></tr>";
                             $how_much_loops++;
                         }
                     }    
@@ -536,7 +536,7 @@ if (isset($_SESSION["logged"]))
                               
                         }
                         else echo "</td>";
-                        echo "<td><a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='del_book.php?book_id=$book_id' onclick='return confirm(\"Are you sure?\")'>delete</a></td></tr>";
+                        echo "<td><a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='admin.deletebook.php?book_id=$book_id' onclick='return confirm(\"Are you sure?\")'>delete</a></td></tr>";
                         $how_much_loops++;
                     }
                     echo "</table>";
