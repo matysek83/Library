@@ -53,20 +53,20 @@ if (isset($_SESSION['logged']))
         $choosedb = mysql_select_db("matys_baza");
 
         $del_id = filter_var($_GET['book_id'], FILTER_SANITIZE_NUMBER_INT);
-        $query = "DELETE FROM tabelabiblioteka
+        $query = "DELETE FROM table_books
                 WHERE
-                id = '$del_id'
+                book_id = $del_id
 
             ";
 
         $result = mysql_query($query) or die(mysql_error());
         if ($result)
         {
-            echo "You have delete entry: ".$usun_id;
+            echo "You have delete entry: ".$del_id;
         }
-        else echo "Delete entry error! ID: $usun_id";
+        else echo "Delete entry error! ID: $del_id";
         disconnect();
-    } echo "Site not exists";
+    }else echo "Site not exists";
 }
 
 ?>                                           

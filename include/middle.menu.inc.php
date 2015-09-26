@@ -32,7 +32,7 @@
 							<li class="pierwszy_element_menu"><a href="admin.user.account.php">User account</a></li>
 							<li><a href="admin.books.php">Admin Books</a></li>
                                                         <li><a href="admin.search.books.php">Admin Search Books</a></li>
-							
+							<li><a href="admin.history.php">History</a></li>
 						</ul>
 					
 					

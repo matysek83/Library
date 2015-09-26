@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas generowania: 24 Wrz 2015, 20:27
+-- Czas generowania: 26 Wrz 2015, 10:50
 -- Wersja serwera: 5.5.44-0ubuntu0.14.04.1
 -- Wersja PHP: 5.5.29-1+deb.sury.org~trusty+3
 
@@ -51,16 +51,18 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `user_id` int(10) unsigned NOT NULL,
   `book_id` int(10) unsigned NOT NULL,
   `date_of_order` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Zrzut danych tabeli `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `book_id`, `date_of_order`) VALUES
-(47, 4, 38, '2015-09-23 16:14:01'),
 (48, 4, 37, '2015-09-23 16:14:04'),
-(49, 4, 5, '2015-09-24 15:11:58');
+(49, 4, 5, '2015-09-24 15:11:58'),
+(50, 4, 3, '2015-09-25 13:23:45'),
+(51, 14, 6, '2015-09-26 08:49:04'),
+(52, 14, 6, '2015-09-26 08:49:06');
 
 -- --------------------------------------------------------
 
@@ -127,10 +129,10 @@ CREATE TABLE IF NOT EXISTS `table_books` (
 
 INSERT INTO `table_books` (`book_id`, `book_name`, `author`, `publishing_house`, `year_of_publication`, `binding`, `availability`, `date_added_book`) VALUES
 (2, 'Harry Potter1', 'J.K. Roling', 'New York', 2012, 0, 0, '2015-08-02 11:08:27'),
-(3, 'Pan Tadeusz', 'Adam Mickiewicz', 'Wydawnictwo Katowice', 2001, 0, 2, '2015-08-02 11:08:27'),
+(3, 'Pan Tadeusz', 'Adam Mickiewicz', 'Wydawnictwo Katowice', 2001, 0, 1, '2015-08-02 11:08:27'),
 (4, 'Nazwa1', 'Autor', 'Wydawnictwo', 1220, 0, 0, '2015-08-02 11:08:27'),
 (5, 'Nazwa', 'Autor', 'Wydawnictwo', 1000, 0, 1, '2015-08-02 11:08:27'),
-(6, 'fds', 'fds', 'fd', 1212, 1, 2, '2015-08-19 09:05:22'),
+(6, 'fds', 'fds', 'fd', 1212, 1, 1, '2015-08-19 09:05:22'),
 (7, 'gfd', 'hgdf', 'hgfh', 1212, 0, 2, '2015-08-19 09:05:41'),
 (8, 'tgrfd', 'htey5hb', 'hbntrhr', 1212, 1, 0, '2015-08-19 09:05:57'),
 (9, 'fds4t34', 'gh54hg', '5h35h', 1241, 1, 0, '2015-08-19 09:06:15'),
@@ -159,9 +161,7 @@ INSERT INTO `table_books` (`book_id`, `book_name`, `author`, `publishing_house`,
 (34, '4444', '4444', '4444', 4444, 1, 2, '2015-09-01 14:29:23'),
 (35, '﻿Pan Wołodyjowski', 'Sienkiewicz', 'Polska', 2012, 0, 1, '2015-09-11 11:32:50'),
 (36, 'ostatnia', 'mochikanimn', 'dsad', 2121, 1, 2, '2015-09-22 13:23:34'),
-(37, '1111', '1111', '1111', 1111, 0, 1, '2015-09-23 13:08:54'),
-(38, '22221', '2222', '2222', 2222, 0, 0, '2015-09-23 13:16:55'),
-(39, '33333', '3333', '3333', 3333, 0, 2, '2015-09-23 13:16:55');
+(37, '1111', '1111', '1111', 1111, 0, 1, '2015-09-23 13:08:54');
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `permissions` smallint(5) unsigned NOT NULL,
   `activation_code` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `date_added_entry` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Zrzut danych tabeli `users`
@@ -185,9 +185,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `login`, `password`, `email`, `permissions`, `activation_code`, `date_added_entry`) VALUES
 (1, 'matys', '3e2b76a7500a105b5e0b63e860785ce02ffdc325f03207b05da225ce8c8bbda8f1550112348b39f37b87dffc1ab4ed1732b878538cf4f32f1eb4ab3308e0a95e', 'mateuszsikora2@wp.pl', 3, 'abc', '2015-08-27 12:45:13'),
-(2, 'matysek83', 'b4d4a3af6c0511882d8864f22e70f72ec5e4c87226044797563ea3df947b551f319840acec4e3acde99732b28e2783cbd69aade4226cb9bf049f671e5686324b', 'mateuszsikora2@gmail.com', 1, '4798f36f071a18cf6e36bd771fe008b241074950e254473e1c2cbfe8097f619accad0542036deffa8492b6e3dc30b4644918d65e1861d9e841d010f7ce211af5', '2015-09-16 17:06:45'),
-(4, 'matysek', 'b4d4a3af6c0511882d8864f22e70f72ec5e4c87226044797563ea3df947b551f319840acec4e3acde99732b28e2783cbd69aade4226cb9bf049f671e5686324b', 'ismatys@onet.pl', 2, '0ed09d0eeea29645a3421c16b0173b6933ee771d31d63650f800ba2a8be88ee157f66971f962bb21267fbf9aa977ad2bce771590671f581221a2443e37cb5f83', '2015-09-17 19:08:56'),
-(8, 'matysek8383', 'b4d4a3af6c0511882d8864f22e70f72ec5e4c87226044797563ea3df947b551f319840acec4e3acde99732b28e2783cbd69aade4226cb9bf049f671e5686324b', 'matys777@o2.pl', 1, '563a17661c1a9ad14c8cbcdd1fea6cb0a5a512d809e31c487383cc50c4f2e38e4c0543736d20eb885530cc577f5e2defed6f5d3eda9ba9d2a99fc95c864c9841', '2015-09-17 19:25:17');
+(4, 'matysek', '3e2b76a7500a105b5e0b63e860785ce02ffdc325f03207b05da225ce8c8bbda8f1550112348b39f37b87dffc1ab4ed1732b878538cf4f32f1eb4ab3308e0a95e', 'ismatys@onet.pl', 2, '0ed09d0eeea29645a3421c16b0173b6933ee771d31d63650f800ba2a8be88ee157f66971f962bb21267fbf9aa977ad2bce771590671f581221a2443e37cb5f83', '2015-09-17 19:08:56'),
+(14, 'matysek83', '3e2b76a7500a105b5e0b63e860785ce02ffdc325f03207b05da225ce8c8bbda8f1550112348b39f37b87dffc1ab4ed1732b878538cf4f32f1eb4ab3308e0a95e', 'mateuszsikora2@gmail.com', 2, '1', '2015-09-26 08:12:09');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -197,13 +196,13 @@ INSERT INTO `users` (`user_id`, `login`, `password`, `email`, `permissions`, `ac
 -- Indexes for table `borrowed_books`
 --
 ALTER TABLE `borrowed_books`
-  ADD UNIQUE KEY `borrowed_id` (`borrowed_id`), ADD KEY `book_id` (`book_id`), ADD KEY `user_id` (`user_id`), ADD KEY `date_borrowed_book` (`date_borrowed_book`);
+  ADD UNIQUE KEY `borrowed_id` (`borrowed_id`), ADD KEY `book_id` (`book_id`), ADD KEY `user_id` (`user_id`), ADD KEY `date_borrowed_book` (`date_borrowed_book`), ADD KEY `book_id_2` (`book_id`,`user_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`), ADD KEY `user_id` (`user_id`,`book_id`), ADD KEY `user_id_2` (`user_id`,`book_id`), ADD KEY `user_id_3` (`user_id`,`book_id`), ADD KEY `book_id` (`book_id`), ADD KEY `user_id_4` (`user_id`), ADD KEY `date_of_order` (`date_of_order`);
+  ADD PRIMARY KEY (`order_id`), ADD KEY `user_id` (`user_id`,`book_id`), ADD KEY `user_id_2` (`user_id`,`book_id`), ADD KEY `user_id_3` (`user_id`,`book_id`), ADD KEY `book_id` (`book_id`), ADD KEY `user_id_4` (`user_id`), ADD KEY `date_of_order` (`date_of_order`), ADD KEY `user_id_5` (`user_id`), ADD KEY `user_id_6` (`user_id`,`book_id`);
 
 --
 -- Indexes for table `returned_books`
@@ -215,7 +214,7 @@ ALTER TABLE `returned_books`
 -- Indexes for table `table_books`
 --
 ALTER TABLE `table_books`
-  ADD PRIMARY KEY (`book_id`), ADD KEY `availability` (`availability`), ADD KEY `availability_2` (`availability`), ADD KEY `book_name` (`book_name`);
+  ADD PRIMARY KEY (`book_id`), ADD KEY `availability` (`availability`), ADD KEY `availability_2` (`availability`), ADD KEY `book_name` (`book_name`), ADD KEY `book_id` (`book_id`);
 
 --
 -- Indexes for table `users`
@@ -236,7 +235,7 @@ ALTER TABLE `borrowed_books`
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
+  MODIFY `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT dla tabeli `returned_books`
 --
@@ -251,7 +250,7 @@ ALTER TABLE `table_books`
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- Ograniczenia dla zrzutów tabel
 --
@@ -269,13 +268,6 @@ ADD CONSTRAINT `borrowed_books_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `table
 ALTER TABLE `orders`
 ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
 ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `table_books` (`book_id`);
-
---
--- Ograniczenia dla tabeli `returned_books`
---
-ALTER TABLE `returned_books`
-ADD CONSTRAINT `returned_books_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `table_books` (`book_id`),
-ADD CONSTRAINT `returned_books_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

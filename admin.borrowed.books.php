@@ -98,7 +98,7 @@ if (isset($_SESSION['logged']))
                 $book_id = $row['book_id'];
                 echo "<tr><td>".$i."</td>";
                 echo "<td>".$row['order_id']."</td>";
-                echo "<td>".$row['o.book_id']."</td>"; 
+                echo "<td>".$row['book_id']."</td>"; 
                 echo "<td>".$row['book_name']."</td>";
                 echo "<td>".$row['author']."</td>"; 
                 echo "<td>".$row['date_of_order']."</td>";

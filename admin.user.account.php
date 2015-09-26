@@ -50,32 +50,10 @@ if (isset($_SESSION["logged"]))
     if ($_SESSION["logged"] == 3)
     {
         connect();
-        if (!mysql_select_db('matys_baza'))
-        {
-            echo "There is no datebase, creating: users<br />";
-            $baza = mysql_query("CREATE DATABASE matys_baza") or die (mysql_error());
-        }
-
-
         $choosedb = mysql_select_db("matys_baza") or die (mysql_error());
-
-        $tworzenie_tabeli = ("
-                        CREATE TABLE IF NOT EXISTS users
-                        (user_id INT(10) unsigned AUTO_INCREMENT,
-                        login VARCHAR(50) NOT NULL,
-                        password CHAR(128) NOT NULL,
-                        email VARCHAR(50) NOT NULL,
-                        permissions SMALLINT(5) NOT NULL,
-                        activation_code CHAR(128) NOT NULL,
-                        date_added_entry TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        PRIMARY KEY (user_id)
-
-                        )");
-        mysql_query($tworzenie_tabeli) or die (mysql_error());
-
+    
         $query = "SELECT * from users";
         $result = mysql_query($query) or die(mysql_error());
-
 
 
         echo
@@ -111,7 +89,7 @@ if (isset($_SESSION["logged"]))
             echo "<td>".$row['email']."</td>";
             echo "<td width='150'>".$row['permissions']."</td>";
             echo "<td>".$row['date_added_entry']."</td>";
-            echo "<td><a href='admin.edit.user.php?user_id=$edit_id'>edit</a> | <a href='delete.user.php?user_id=$del_id' onclick='return confirm(\"Czy na pewno?\")'>usuń</a><br><a href='admin.borrowed.books.php?user_id=$borrow_id'>edit books</a></td></tr>";
+            echo "<td><a href='admin.edit.user.php?user_id=$edit_id'>edit</a> | <a href='admin.deleteuser.php?user_id=$del_id' onclick='return confirm(\"Are you sure?\")'>delete</a><br><a href='admin.borrowed.books.php?user_id=$borrow_id'>edit books</a></td></tr>";
         }
         /*echo
         "<table bgcolor=#EEEEEE  border='1' align=center  width='880'><tr align=center>

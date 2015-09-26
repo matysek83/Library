@@ -78,7 +78,7 @@ if (isset($_SESSION["logged"]))
     if ($_SESSION["logged"] == 3 )
     {
         connect();
-        $wyborbazy = mysql_select_db("matys_baza");
+        $choosedb = mysql_select_db("matys_baza");
         clean('sortby', $sortby);
         clean('dir', $dir);
         clean('page', $page);

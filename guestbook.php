@@ -58,7 +58,7 @@ if ($wskaznik)
     $ilosc_stron = ceil($licznik/10);
     if (($_GET['page'] > $ilosc_stron) )
     {
-        echo "Taka strona nie istnieje!";
+        echo "Site not exists!";
         exit;
     }
 
@@ -66,7 +66,7 @@ if ($wskaznik)
         if ($_GET['page']!=NULL)
         if (!is_numeric($_GET['page']))
         {
-            echo "Taka strona nie istnieje!";
+            echo "Site not exists!";
             exit;
         }		
     rewind($wskaznik);
@@ -133,12 +133,12 @@ if ($wskaznik)
         $tablica = file($plik);
         for ($i = $odktorego; $i<=$doktorego; $i+=2)
         {
-        if ($i>=$licznik) break;
-        if ($ile_petli >=5 ) break;
-        if ($tablica[$i+1] == '') break;
-        echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
-        echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
-        $ile_petli++;
+            if ($i>=$licznik) break;
+            if ($ile_petli >=5 ) break;
+            if ($tablica[$i+1] == '') break;
+            echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
+            echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
+            $ile_petli++;
         }
     echo "</table>";
     }
@@ -173,11 +173,11 @@ echo "<br><br>";
             }
         }
 
-         if (empty($_GET['page']))
-            {
-                if ($ilosc_stron > 1)
-                echo "<a href='guestbook.php?page=$dwa'> > </a> ";
-            }
+        if (empty($_GET['page']))
+        {
+            if ($ilosc_stron > 1)
+            echo "<a href='guestbook.php?page=$dwa'> > </a> ";
+        }
              
         //$trescpoprawiona = explode(" ", $tresc);
         

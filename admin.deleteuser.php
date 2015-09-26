@@ -43,15 +43,33 @@ include_once  'include/meta.inc.php';
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
 <?php					
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
- ?>                                           
+if (isset($_SESSION['logged']))
+{
+    if ($_SESSION['logged'] == 3)
+    {
+        connect();
+
+
+        $choosedb = mysql_select_db("matys_baza");
+
+        $user_id = filter_var($_GET['user_id'], FILTER_SANITIZE_NUMBER_INT);
+        $query = "DELETE FROM users
+                WHERE
+                user_id = $user_id
+
+            ";
+
+        $result = mysql_query($query) or die(mysql_error());
+        if ($result)
+        {
+            echo "You have delete entry: ".$user_id;
+        }
+        else echo "Delete entry error! ID: $user_id";
+        disconnect();
+    }else echo "Site not exists";
+}
+
+?>                                                                                    
 					</div>
 					
 					
