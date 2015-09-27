@@ -144,13 +144,13 @@ else
         {
             echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
             <th>LP</th>
-            <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-            <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-            <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-            <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-            <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-            <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-            <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+            <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+            <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+            <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+            <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+            <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+            <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+            <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
             </tr>";
         }
     if (!empty($_SESSION['sortby1']) && !empty($_SESSION['dir']))
@@ -166,13 +166,13 @@ else
             {
                 echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                 <th>LP</th>
-                <th><a href='allbooks.php?sortby=book_id&dir=DESC'>ID &and;</a></th>
-                <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                <th><a href='allbooks.php?sortby1=book_id&dir=DESC'>ID &and;</a></th>
+                <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                 </tr>";
             }
 
@@ -187,13 +187,13 @@ else
                 {
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=DESC'>Book Name &and;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=DESC'>Book Name &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                 }
 
@@ -210,13 +210,13 @@ else
 
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=DESC'>Author &and;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=DESC'>Author &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                 }
 
@@ -233,13 +233,13 @@ else
                 {
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=DESC'>Publishing house &and;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=DESC'>Publishing house &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                 }
 
@@ -256,13 +256,13 @@ else
 
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=DESC'>Year of publication &and;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=DESC'>Year of publication &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                     }
 
@@ -280,13 +280,13 @@ else
 
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=DESC'>Binding &and;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=DESC'>Binding &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                     }
 
@@ -303,13 +303,13 @@ else
 
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                    <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='allbooks.php?sortby=availability&dir=DESC'>Availability &and;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='allbooks.php?sortby1=availability&dir=DESC'>Availability &and;</a></th>
                     </tr>";
                  }
 
@@ -326,13 +326,13 @@ else
         echo
         "<table bgcolor=#EEEEEE border=1 align=center  width='920'><tr>
         <th>LP</th>
-        <th><a href='allbooks.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-        <th><a href='allbooks.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-        <th><a href='allbooks.php?sortby=author&dir=ASC'>Author &or;</a></th>
-        <th><a href='allbooks.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-        <th><a href='allbooks.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-        <th><a href='allbooks.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-        <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>";
+        <th><a href='allbooks.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+        <th><a href='allbooks.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+        <th><a href='allbooks.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+        <th><a href='allbooks.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+        <th><a href='allbooks.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+        <th><a href='allbooks.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+        <th><a href='allbooks.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>";
         }
 
 
@@ -345,8 +345,8 @@ else
     if ((empty($_GET['page'])) || ($_GET['page']) == 1 )
     {
         $how_much_loops = 0;
-
-        for ($i = 0; $i <= mysql_num_rows($result); $i++)
+        $i = 0;
+        while($row = mysql_fetch_assoc($result))
         {
             $i =  mysql_real_escape_string($i);
             if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
@@ -378,6 +378,9 @@ else
             else if ($row['availability'] == 1)
                 $row['availability'] = "ordered";    
             $book_id = $row['book_id'];
+            $row['book_name'] = chunk_split($row['book_name'], 20, "<br>");
+            $row['author'] = chunk_split($row['author'], 20, "<br>");
+            $row['publishing_house'] = chunk_split($row['publishing_house'], 20, "<br>");      
             echo "<td>".($i+1)."</td>";
             echo "<td>".$row['book_id']."</td>";
             echo "<td>".$row['book_name']."</td>";
@@ -404,6 +407,7 @@ else
             
 
             $how_much_loops++;
+            $i++;
          }
     echo "</tr></table>";
     }
@@ -456,6 +460,10 @@ else
                 $del_id = $row['book_id'];
                 $edit_id = $row['book_id'];
                 $book_id = $row['book_id'];
+                $row['book_name'] = chunk_split($row['book_name'], 20, "<br>");
+                $row['author'] = chunk_split($row['author'], 20, "<br>");
+                $row['publishing_house'] = chunk_split($row['publishing_house'], 20, "<br>"); 
+            
                 echo "<td>".($i+1)."</td>";
                 echo "<td>".$row['book_id']."</td>";
                 echo "<td>".$row['book_name']."</td>";
@@ -488,6 +496,7 @@ else
        // Numeracja dolna
        if (isset($_GET['page']))
         {
+           $page = filter_var($_GET['page'], FILTER_SANITIZE_NUMBER_INT);
             $a = 1;
             $two = 2;
             $next_page = $page+1;
@@ -559,7 +568,7 @@ else
          echo "</div>";
 }
 // Przycisk odśwież
-    echo "<div style='text-align: center;'><br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"allbooks.php?sortby=book_id&dir=ASC\"' />
+    echo "<div style='text-align: center;'><br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"allbooks.php?sortby1=book_id&dir=ASC\"' />
     <br><br></div>";
 
 disconnect();

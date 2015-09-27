@@ -43,11 +43,11 @@ include_once  'include/meta.inc.php';
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
                                             <form method="post" action="registration.php" name="formularz">
-                                            LOGIN: <input type="text" size="30" maxlength="40" name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login']; ?>"/><br /><br />
-                                            PASSWORD: <input type="password" size="30" maxlength="40" name="pass" /><br /><br />
+                                            LOGIN: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="30" maxlength="40" name="login" value="<?php if (isset($_POST['login'])) echo $_POST['login']; ?>"/><br /><br />
+                                            PASSWORD: &nbsp;&nbsp;<input type="password" size="30" maxlength="40" name="pass" /><br /><br />
                                             PASSWORD1: <input type="password" size="30" maxlength="40" name="pass1" /><br /><br />
-                                            EMAIL: <input type="text" size="30" maxlength="40" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"/><br /><br />
-                                            EMAIL1: <input type="text" size="30" maxlength="40" name="email1" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; ?>"/><br /><br />
+                                            EMAIL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="30" maxlength="40" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"/><br /><br />
+                                            EMAIL1: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="30" maxlength="40" name="email1" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; ?>"/><br /><br />
                                             <input type="submit" value=" Send " />
                                             </form>
                                             

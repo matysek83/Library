@@ -56,7 +56,7 @@ if ($_SESSION['logged'] == 3)
 {
     function clean($name, $var)
     {
-        if (isset($_GET['sortby']))
+        if (isset($_GET['sortby1']))
     {
     $_GET[$name] = filter_var($_GET[$name], FILTER_SANITIZE_STRING);
     $_SESSION[$name] = $_GET[$name];
@@ -72,16 +72,16 @@ if ($_SESSION['logged'] == 3)
     if (isset($_SESSION['logged']))
     $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
-    clean('sortby', $sortby);
+    clean('sortby1', $sortby);
     clean('dir', $dir);
     clean('page', $page);
     
     /*
-    if (isset($_GET['sortby']))
+    if (isset($_GET['sortby1']))
     {
-    $_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
-    $_SESSION['sortby'] = $_GET['sortby'];
-    $sortby = $_SESSION['sortby'];
+    $_GET['sortby1'] = filter_var($_GET['sortby1'], FILTER_SANITIZE_STRING);
+    $_SESSION['sortby1'] = $_GET['sortby1'];
+    $sortby = $_SESSION['sortby1'];
     $sortby = mysql_real_escape_string($sortby);
     }
 
@@ -167,31 +167,31 @@ if ($_SESSION['logged'] == 3)
             {
                 echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                 <th>LP</th>
-                <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                 </tr>";
             }
-        if ((!empty($_SESSION['sortby'])) && (!empty($_SESSION['dir'])))
+        if ((!empty($_SESSION['sortby1'])) && (!empty($_SESSION['dir'])))
         {
 
-            if ($_SESSION['sortby'] == "book_id")
+            if ($_SESSION['sortby1'] == "book_id")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
                     echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                     <th>LP</th>
-                    <th><a href='admin.search.books.php?sortby=book_id&dir=DESC'>ID &and;</a></th>
-                    <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                    <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                    <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                    <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                    <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                    <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=book_id&dir=DESC'>ID &and;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                    <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                     </tr>";
                 }
 
@@ -200,19 +200,19 @@ if ($_SESSION['logged'] == 3)
                     sort_first_table();
                 }
             }
-                if ($_SESSION['sortby'] == "book_name")
+                if ($_SESSION['sortby1'] == "book_name")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=DESC'>Book Name &and;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=DESC'>Book Name &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                         </tr>";
                     }
 
@@ -222,20 +222,20 @@ if ($_SESSION['logged'] == 3)
                     }
                 }
 
-                if ($_SESSION['sortby'] == "author")
+                if ($_SESSION['sortby1'] == "author")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
 
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=DESC'>Author &and;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=DESC'>Author &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                         </tr>";
                     }
 
@@ -246,19 +246,19 @@ if ($_SESSION['logged'] == 3)
             }
 
 
-                if ($_SESSION['sortby'] == "publishing_house")
+                if ($_SESSION['sortby1'] == "publishing_house")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=DESC'>Publishing house &and;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=DESC'>Publishing house &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                         </tr>";
                     }
 
@@ -268,20 +268,20 @@ if ($_SESSION['logged'] == 3)
                     }
                }
 
-                if ($_SESSION['sortby'] == "year_of_publication")
+                if ($_SESSION['sortby1'] == "year_of_publication")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
 
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=DESC'>Year of publication &and;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=DESC'>Year of publication &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                         </tr>";
                         }
 
@@ -292,20 +292,20 @@ if ($_SESSION['logged'] == 3)
                 }
 
 
-                if ($_SESSION['sortby'] == "binding")
+                if ($_SESSION['sortby1'] == "binding")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
 
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=DESC'>Binding &and;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=DESC'>Binding &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th>
                         </tr>";
                         }
 
@@ -315,20 +315,20 @@ if ($_SESSION['logged'] == 3)
                     }
                 }
 
-                if ($_SESSION['sortby'] == "availability")
+                if ($_SESSION['sortby1'] == "availability")
                 {
                     if ($_SESSION['dir'] == "ASC")
                     {
 
                         echo  "<table bgcolor=#EEEEEE border=1 align=center width='920'><tr>
                         <th>LP</th>
-                        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-                        <th><a href='admin.search.books.php?sortby=availability&dir=DESC'>Availability &and;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+                        <th><a href='admin.search.books.php?sortby1=availability&dir=DESC'>Availability &and;</a></th>
                         </tr>";
                      }
 
@@ -342,13 +342,13 @@ if ($_SESSION['logged'] == 3)
         echo
         "<table bgcolor=#EEEEEE border=1 align=center  width='920'><tr>
         <th>LP</th>
-        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th></tr>";
+        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th></tr>";
         }
 
 
@@ -376,10 +376,10 @@ if ($_SESSION['logged'] == 3)
                 {
 
                     $i =  mysql_real_escape_string($i);
-                    if (isset($_SESSION['sortby'])&& isset($_SESSION['dir']))
+                    if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                     {
-                        //if (!empty($_GET['sortby']) && !empty($_GET['dir']))  - przy włącznonym wyświetla to samo 10 razy
-                        $sortby = $_SESSION['sortby'];
+                        //if (!empty($_GET['sortby1']) && !empty($_GET['dir']))  - przy włącznonym wyświetla to samo 10 razy
+                        $sortby = $_SESSION['sortby1'];
                         $dir = $_SESSION['dir'];
                         $query = "SELECT * from table_books WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%' ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
                     }
@@ -403,9 +403,9 @@ if ($_SESSION['logged'] == 3)
                     $book_id = $row['book_id'];
                     echo "<td>".($i+1)."</td>";
                     echo "<td>".$row['book_id']."</td>";
-                    echo "<td>".$row['book_name']."</td>";
-                    echo "<td>".$row['author']."</td>";
-                    echo "<td>".$row['publishing_house']."</td>";
+                    echo "<td>".chunk_split($row['book_name'], 20, "<br>")."</td>";
+                    echo "<td>".chunk_split($row['author'], 20, "<br>")."</td>";
+                    echo "<td>".chunk_split($row['publishing_house'], 20, "<br>")."</td>";
                     echo "<td>".$row['year_of_publication']."</td>";
                     echo "<td>".$row['binding']."</td>";
                     echo "<td>".$row['availability'] ;
@@ -440,15 +440,15 @@ if ($_SESSION['logged'] == 3)
 
                 $how_much_loops = 0;
 
-                //$sortby = $_SESSION['sortby'];
+                //$sortby = $_SESSION['sortby1'];
 
                 for ($i = $from_which; $i <=$to_which; $i++)
                 {
 
                     $i =  mysql_real_escape_string($i);
-                    if (isset($_SESSION['sortby'])&& isset($_SESSION['dir']))
+                    if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                     {
-                        $sortby = $_SESSION['sortby'];
+                        $sortby = $_SESSION['sortby1'];
                         $dir = $_SESSION['dir'];
                         $query = "SELECT * from table_books WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%' ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
                     }
@@ -479,10 +479,9 @@ if ($_SESSION['logged'] == 3)
                     echo "<td>".($i+1)."</td>";
                     echo "<td>".$row['book_id']."</td>";
                     $book_id = $row['book_id'];
-                    echo "<td>".$row['book_name']."</td>";
-                    echo "<td>".$row['author']."</td>";
-                    echo "<td>".$row['publishing_house']."</td>";
-                    echo "<td>".$row['year_of_publication']."</td>";
+                    echo "<td>".chunk_split($row['book_name'], 20, "<br>")."</td>";
+                    echo "<td>".chunk_split($row['author'], 20, "<br>")."</td>";
+                    echo "<td>".chunk_split($row['publishing_house'], 20, "<br>")."</td>";
                     echo "<td>".$row['binding']."</td>";
                     echo "<td>".$row['availability'] ;
                     if ($row['availability'] == "available")
@@ -516,19 +515,20 @@ if ($_SESSION['logged'] == 3)
         echo
         "<table bgcolor=#EEEEEE border=1 align=center  width='920'><tr>
         <th>LP</th>
-        <th><a href='admin.search.books.php?sortby=book_id&dir=ASC'>ID &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=book_name&dir=ASC'>Book Name &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=author&dir=ASC'>Author &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=publishing_house&dir=ASC'>Publishing house &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=binding&dir=ASC'>Binding &or;</a></th>
-        <th><a href='admin.search.books.php?sortby=availability&dir=ASC'>Availability &or;</a></th></tr></table>";
+        <th><a href='admin.search.books.php?sortby1=book_id&dir=ASC'>ID &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=book_name&dir=ASC'>Book Name &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=author&dir=ASC'>Author &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=publishing_house&dir=ASC'>Publishing house &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=year_of_publication&dir=ASC'>Year of publication &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=binding&dir=ASC'>Binding &or;</a></th>
+        <th><a href='admin.search.books.php?sortby1=availability&dir=ASC'>Availability &or;</a></th></tr></table>";
         }
     */
     
     if (isset($_GET['page']))
     {
         echo "<div style='text-align: left;'>";
+        $page = filter_var($_GET['page'], FILTER_SANITIZE_NUMBER_INT);
         $a = 1;
         $two = 2;
         $next_page = $page+1;
@@ -603,7 +603,7 @@ if ($_SESSION['logged'] == 3)
 
     echo "</div>";
     echo "<div style='text-align: center;'>";
-    echo "<br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"admin.search.books.php?sortby=book_id&dir=ASC\"' />
+    echo "<br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"admin.search.books.php?sortby1=book_id&dir=ASC\"' />
     <br><br>";
     echo "</div>";
     disconnect();

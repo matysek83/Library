@@ -70,7 +70,7 @@ if (isset($_SESSION["logged"]))
         clean('page', $page);
         
         
-        $query = "SELECT returned_id from returned_books
+        $query = "SELECT returned_id FROM returned_books
                   ";
 
 
@@ -314,21 +314,21 @@ if (isset($_SESSION["logged"]))
 
 
 
-             if ((empty($_GET['page'])) || ($_GET['page']) == 1 )
-             {
+            if ((empty($_GET['page'])) || ($_GET['page']) == 1 )
+            {
                 $how_much_loops = 0;
-
-                for ($i = 0; $i < mysql_num_rows($result); $i++)
+                $i = 0;
+                while($row = mysql_fetch_assoc($result))
                 {
                     $i =  mysql_real_escape_string($i);
                     if (isset($_SESSION['sortby']) && (isset($_SESSION['dir'])))
                     {
                         $sortby = $_SESSION['sortby'];
                         $dir = $_SESSION['dir'];
-                        $query = "SELECT * from returned_books ORDER BY $sortby $dir, returned_id ASC LIMIT 10 OFFSET $i";
+                        $query = "SELECT * FROM returned_books ORDER BY $sortby $dir, returned_id ASC LIMIT 10 OFFSET $i";
                     }
-                    else $query = "SELECT * from returned_books LIMIT 10 OFFSET $i";
-                     //$query = "SELECT * from table_books ORDER BY borrowed_id DESC LIMIT 10 OFFSET $i";
+                    else $query = "SELECT * FROM returned_books LIMIT 10 OFFSET $i";
+                    //$query = "SELECT * from table_books ORDER BY borrowed_id DESC LIMIT 10 OFFSET $i";
 
                     if ($how_much_loops >= 10) break;
 
@@ -346,6 +346,7 @@ if (isset($_SESSION["logged"]))
                     echo "<td>".$row['date_of_return']."</td></tr>";
                     
                     $how_much_loops++;
+                    $i++;
                     
           
                        
@@ -408,10 +409,11 @@ if (isset($_SESSION["logged"]))
 
                if (isset($_GET['page']))
                {
+                   $page = filter_var($_GET['page'], FILTER_SANITIZE_NUMBER_INT);
                    $a = 1;
                    $two = 2;
-                   $next_page = $page+1;
-                   $previous_page = $page-1;
+                   $next_page = ($page+1);
+                   $previous_page = ($page-1);
                    if (($page)<=$num_of_pages)
                    {
                        echo "</tr></table>";

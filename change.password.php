@@ -50,7 +50,7 @@ if (isset($_SESSION['logged']))
     connect();
     $choosedb = mysql_select_db("matys_baza") or die (mysql_error());
     echo "<form method=post action='' name='form'>";
-    echo "Old password: <input type='password' name='oldpassword'><br>";
+    echo "Old password: &nbsp;&nbsp;<input type='password' name='oldpassword'><br>";
     echo "New password: <input type='password' name='newpassword'><br>"; 
     echo "New password: <input type='password' name='newpassword1'><br>"; 
     echo "<input type='submit' value=' Send ' >";

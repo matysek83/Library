@@ -49,7 +49,7 @@ if (empty($_POST['emailforpassword']) && empty($_GET['activation_password']))
 {
     echo "<form action='' method='post' name='form'>
             Type email: <input type='text' name='emailforpassword'><br>
-            12 plus 1<input type='text' name='validation'>
+            12 plus 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' name='validation'><br><br>
             <input type='submit' value=' Send '>
            </form>";
 }
@@ -60,7 +60,7 @@ if (isset($_POST['emailforpassword']) && isset($_POST['validation']))
     if (!empty($_POST['emailforpassword']) && !empty($_POST['validation']))
     {
         $emailforpassword = filter_var($_POST['emailforpassword'], FILTER_SANITIZE_EMAIL);
-        if ($_POST['validation'] == '13' && isset($emailforpassword))
+        if ($_POST['validation'] == '15' && isset($emailforpassword))
         {
             $select = mysql_select_db("matys_baza");
             $query = "SELECT login, activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";

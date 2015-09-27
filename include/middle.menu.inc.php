@@ -27,7 +27,7 @@
 					<?php if (isset($_SESSION['logged']))
 					if  ($_SESSION["logged"] == 3 && $_SESSION["logged"] !=2 && $_SESSION["logged"] !=1) { ?>
 					<li><span class="odstepik">: - :</span></li>
-					<li><a href="ksiega.php"><span style="color:red"; class="link2">Admin Panel</span></a>
+					<li><a href="#"><span style="color:red"; class="link2">Admin Panel</span></a>
 						<ul class="drugi_poziom">
 							<li class="pierwszy_element_menu"><a href="admin.user.account.php">User account</a></li>
 							<li><a href="admin.books.php">Admin Books</a></li>

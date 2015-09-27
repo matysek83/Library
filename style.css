@@ -46,7 +46,7 @@ p
 	margin-top: 10px;
 	border: 1px solid #0f3250;
 	width: 1300px;
-	height: 74px;	
+	height: 84px;	
 	background-color: #325a8a;
 	text-align: left;
 }
@@ -576,3 +576,10 @@ table
 }
 
 */
+
+input[type=submit]
+{
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
