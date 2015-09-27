@@ -3,19 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/order_book.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.check.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.user.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.history.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/allbooks.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/index.php</file>
+            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.check.user.php</file>
             <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/include/login.user.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/include/login.to.base.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/my.ordered.books.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/change.password.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.edit.book.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/forgot.password.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.delete.user.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.user.account.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.books.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/admin.deletebook.php</file>
-            <file>file:/C:/xampp/htdocs/biblioteka_na_ubuntu/include/middle.menu.inc.php</file>
         </group>
     </open-files>
 </project-private>

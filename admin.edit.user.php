@@ -42,7 +42,7 @@ require_once 'include/login.to.base.php';
 					<div id="tekst">
 						<?php
 							connect();
-							$wyborbazy = mysql_select_db("matys_baza") or die (mysql_error());
+							$choosedb = mysql_select_db("matys_baza") or die (mysql_error());
 							$edit_id = $_GET['user_id'];
 							$query = "SELECT * from users WHERE user_id=$edit_id";
 							$result = mysql_query($query) or die(mysql_error());
@@ -87,7 +87,7 @@ require_once 'include/login.to.base.php';
 
 							echo "<form method='post' action='admin.edit.check.user.php?user_id=$user_id'>;
 							<tr>
-							<td style='min-width:50px;'><input type='text' name='id' size='30' value='$user_id' maxlength='40'/></td>
+							<td style='min-width:50px;'><input type='text' name='user_id' size='30' value='$user_id' maxlength='40'/></td>
 							<td><input type='text' name='login' size='30' maxlength='40' value='$login'/></td>
 							<td><input type='text' name='email' size='40' maxlength='50' value='$email'/></td>";
 							echo "<td><input type=radio name=permissions value=1 ";

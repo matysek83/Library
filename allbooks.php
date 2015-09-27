@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include "include/meta.inc.php";
 ?>
 
-<title>PHP Library</title>
+<title>PHP Library1</title>
 
 </head>
 <body onload="zegar();">
@@ -61,7 +61,7 @@ $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 connect();
 $wyborbazy = mysql_select_db("matys_baza");
 
-clean('sortby', $sortby);
+clean('sortby1', $sortby);
 clean('dir', $dir);
 clean('page', $page);
 
@@ -69,8 +69,8 @@ clean('page', $page);
 if (isset($_GET['sortby']))
 {
 $_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
-$_SESSION['sortby'] = $_GET['sortby'];
-$sortby = $_SESSION['sortby'];
+$_SESSION['sortby1'] = $_GET['sortby'];
+$sortby = $_SESSION['sortby1'];
 $sortby = mysql_real_escape_string($sortby);
 }
 
@@ -153,14 +153,14 @@ else
             <th><a href='allbooks.php?sortby=availability&dir=ASC'>Availability &or;</a></th>
             </tr>";
         }
-    if (!empty($_SESSION['sortby']) && !empty($_SESSION['dir']))
+    if (!empty($_SESSION['sortby1']) && !empty($_SESSION['dir']))
     {
 
 
 
 
 
-        if ($_SESSION['sortby'] == "book_id")
+        if ($_SESSION['sortby1'] == "book_id")
         {
             if ($_SESSION['dir'] == "ASC")
             {
@@ -181,7 +181,7 @@ else
                 sort_first_table();
             }
         }
-            if ($_SESSION['sortby'] == "book_name")
+            if ($_SESSION['sortby1'] == "book_name")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -203,7 +203,7 @@ else
                 }
             }
 
-            if ($_SESSION['sortby'] == "author")
+            if ($_SESSION['sortby1'] == "author")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -227,7 +227,7 @@ else
         }
 
 
-            if ($_SESSION['sortby'] == "publishing_house")
+            if ($_SESSION['sortby1'] == "publishing_house")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -249,7 +249,7 @@ else
                 }
            }
 
-            if ($_SESSION['sortby'] == "year_of_publication")
+            if ($_SESSION['sortby1'] == "year_of_publication")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -273,7 +273,7 @@ else
             }
 
 
-            if ($_SESSION['sortby'] == "binding")
+            if ($_SESSION['sortby1'] == "binding")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -296,7 +296,7 @@ else
                 }
             }
 
-            if ($_SESSION['sortby'] == "availability")
+            if ($_SESSION['sortby1'] == "availability")
             {
                 if ($_SESSION['dir'] == "ASC")
                 {
@@ -349,9 +349,9 @@ else
         for ($i = 0; $i <= mysql_num_rows($result); $i++)
         {
             $i =  mysql_real_escape_string($i);
-            if (isset($_SESSION['sortby']) && isset($_SESSION['dir']))
+            if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
             {
-                $sortby = $_SESSION['sortby'];
+                $sortby = $_SESSION['sortby1'];
                 $dir = $_SESSION['dir'];
                 $sortby = mysql_real_escape_string($sortby);
                 $dir = mysql_real_escape_string($dir);
@@ -423,9 +423,9 @@ else
             for ($i = $from_which; $i <=$to_which; $i++)
             {
                 $i =  mysql_real_escape_string($i);
-                if (isset($_SESSION['sortby']) && isset($_SESSION['dir']))
+                if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
                 {
-                $sortby = $_SESSION['sortby'];
+                $sortby = $_SESSION['sortby1'];
                 $dir = $_SESSION['dir'];    
                 $query = "SELECT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
                 }

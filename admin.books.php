@@ -435,7 +435,7 @@ if (isset($_SESSION["logged"]))
                     echo "<td>".$row['publishing_house']."</td>";
                     echo "<td>".$row['year_of_publication']."</td>";
                     echo "<td>".$row['binding']."</td>";
-                    echo "<td>".$row['availability'] ;
+                    echo "<td>".$row['availability']."</td>" ;
          
                     
              ////       orders////
@@ -443,32 +443,11 @@ if (isset($_SESSION["logged"]))
                     {
                         if ($_SESSION["logged"] == 3)
                         {
-                            if ($row['availability'] == "available")
-                            {
-                                echo "<a href='bazaksiazek.php?'> | Order </a>";   //????????
-                            }
-                        
-                        
-                        
-                            if ($row['availability'] == "ordered")
-                            {
-                                
-                                $query1 = "SELECT order_id, o.book_id, user_id, book_name, author, date_of_order, availability FROM (orders o LEFT JOIN table_books t ON o.book_id = t.book_id) WHERE t.book_id=$book_id AND availability=1";
-                                $result1 = mysql_query($query1) or die(mysql_error());
-                                
-                                while ($row1 = mysql_fetch_assoc($result1))
-                                {                                    
-                                    
-                                    $user_id = $row1['user_id'];
-
-                                }    
-                                echo "<a href='admin.books?borrow_user_id=$user_id'> | Borrow user_id=$user_id</a></td>";  //?????????????????????????????????
-                            }
-                            else echo "</td>";
                             echo "<td> <a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='admin.deletebook.php?book_id=$book_id' onclick='return confirm(\"Are you sure to delete?\")'>delete</a></td></tr>";
-                            $how_much_loops++;
+                            
                         }
-                    }    
+                    }
+                    $how_much_loops++;
                 }
             echo "</table>";
             }
@@ -527,15 +506,8 @@ if (isset($_SESSION["logged"]))
                         echo "<td>".$row['publishing_house']."</td>";
                         echo "<td>".$row['year_of_publication']."</td>";
                         echo "<td>".$row['binding']."</td>";
-                        echo "<td>".$row['availability'] ;
-                        if ($row['availability'] == "available")
-                        {
-                            
-                                    echo "<a href='bazaksiazek.php'> | Borrow</a>";
-                                    echo "</td>";
-                              
-                        }
-                        else echo "</td>";
+                        echo "<td>".$row['availability']."</td>";
+                        
                         echo "<td><a href='admin.edit.book.php?book_id=$book_id'>edit</a> | <a href='admin.deletebook.php?book_id=$book_id' onclick='return confirm(\"Are you sure?\")'>delete</a></td></tr>";
                         $how_much_loops++;
                     }
@@ -546,83 +518,85 @@ if (isset($_SESSION["logged"]))
 
                /*  page numbering  */
 
-               if (isset($_GET['page']))
-               {
-                   $a = 1;
-                   $two = 2;
-                   $next_page = $page+1;
-                   $previous_page = $page-1;
-                   if (($page)<=$num_of_pages)
-                   {
-                       echo "</tr></table>";
-                        if ($_GET['page'] >= 2)
-                        {
-                            echo "<a href='admin.books.php?page=$previous_page'> < </a> ";
-                        }
-                    }
+            if (isset($_GET['page']))
+            {
+                $a = 1;
+                $two = 2;
+                $next_page = $page+1;
+                $previous_page = $page-1;
+                if (($page)<=$num_of_pages)
+                {
+                    echo "</tr></table>";
+                     if ($_GET['page'] >= 2)
+                     {
+                         echo "<a href='admin.books.php?page=$previous_page'> < </a> ";
+                     }
+                 }
 
 
-                    for ($i=1; $i<=$num_of_pages; $i++)
+                for ($i=1; $i<=$num_of_pages; $i++)
+                {
+                    if ($_GET['page'] == $i)
+                    echo "<a href='admin.books.php?page=$i'> <b>$i</b> </a> ";
+                    else
+                       echo "<a href='admin.books.php?page=$i'> $i </a> "; 
+                    if ($i==50*$a)
                     {
-                        if ($_GET['page'] == $i)
-                        echo "<a href='admin.books.php?page=$i'> <b>$i</b> </a> ";
-                        else
-                           echo "<a href='admin.books.php?page=$i'> $i </a> "; 
-                        if ($i==50*$a)
-                        {
-                            echo "br/>";
-                            $a++;
-                        }
+                        echo "br/>";
+                        $a++;
                     }
-
-                    if (($_GET['page'])>=1 )
-                    {
-
-                        if ($num_of_pages > ($_GET['page']))
-                        {
-                            echo "<a href='admin.books.php?page=$next_page'> > </a> ";
-                        }
-                    }
-
-                     if (($_GET['page']) == NULL)
-                        {
-                            if ($num_of_pages > 1)
-                            echo "<a href='admin.books.php?page=$two'> > </a> ";
-                        }
-                        echo "</div>";
                 }
 
-                else
+                if (($_GET['page'])>=1 )
                 {
 
-                    $next_page = 2;
-                    $num_of_pages = ceil($counter/10);
-                    $two = 2;
-                    $a = 1;
-                    for ($i=1; $i<=$num_of_pages; $i++)
-                    {
-                        if ($i == 1)
-                        echo "<a href='admin.books.php?page=$i'> <b>$i</b> </a> ";   
-                        else echo "<a href='admin.books.php?page=$i'> $i </a> ";
-                        if ($i==50*$a)
-                        {
-                            echo "br/>";
-                            $a++;
-                        }
-                    }
-
-                    if ($num_of_pages > 1)
+                    if ($num_of_pages > ($_GET['page']))
                     {
                         echo "<a href='admin.books.php?page=$next_page'> > </a> ";
                     }
-                } 
-                echo "</div>";
-                 /* End of page numbering  */
+                }
+
+                 if (($_GET['page']) == NULL)
+                    {
+                        if ($num_of_pages > 1)
+                        echo "<a href='admin.books.php?page=$two'> > </a> ";
+                    }
+                    echo "</div>";
             }
-            echo "<div style='text-align: center;'><br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"admin.books.php?sortby=book_id&dir=ASC\"' />
-            <form name='form' action='admin.add.book.php' method=post><br />
-            <input type='submit' style='padding:20px;' value='Add book' method='post'></form>
-            <br><br></div>";
+
+            else
+            {
+
+                $next_page = 2;
+                $num_of_pages = ceil($counter/10);
+                $two = 2;
+                $a = 1;
+                for ($i=1; $i<=$num_of_pages; $i++)
+                {
+                    if ($i == 1) 
+                    echo "<a href='admin.books.php?page=$i'> <b>$i</b> </a> ";   
+                    else echo "<a href='admin.books.php?page=$i'> $i </a> ";
+                    if ($i==50*$a)
+                    {
+                        echo "br/>";
+                        $a++;
+                    }
+                }
+
+                if ($num_of_pages > 1)
+                {
+                    echo "<a href='admin.books.php?page=$next_page'> > </a> ";
+                }
+            } 
+             echo "</div>";
+              /* End of page numbering  */
+        }
+        echo "<div style='text-align: center;'><br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"admin.books.php?sortby=book_id&dir=ASC\"' />
+        <form name='form' action='admin.add.book.php' method=post><br />
+        <input type='submit' style='padding:20px;' value='Add book' method='post'></form>
+        <br><br></div>";
+         
+        
     }
 }
 else echo "You don't have permissions";

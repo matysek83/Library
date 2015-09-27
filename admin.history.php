@@ -70,7 +70,7 @@ if (isset($_SESSION["logged"]))
         clean('page', $page);
         
         
-        $query = "SELECT * from returned_books
+        $query = "SELECT returned_id from returned_books
                   ";
 
 
