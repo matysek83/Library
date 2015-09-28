@@ -1,5 +1,5 @@
 <?php
-function connect($host = "localhost", $user = "root", $password = "area5432")
+function connect($host = "localhost", $user = "root", $password = "")
 {
     $db = mysql_connect($host, $user, $password);
     if (!$db)
@@ -11,7 +11,7 @@ function connect($host = "localhost", $user = "root", $password = "area5432")
     mysql_set_charset("utf8");
 }
 
-function disconnect($host = "localhost", $user = "root", $password = "area5432")
+function disconnect($host = "localhost", $user = "root", $password = "")
 {
     $db = mysql_connect($host, $user, $password);
     if (!$db)
