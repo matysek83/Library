@@ -35,6 +35,7 @@ include_once  'include/meta.inc.php';
 		<!--środkowe menu-->
 		<?php
 		include_once 'include/middle.menu.inc.php';
+                include_once ("captcha/securimage/securimage.php");
 		?>
 		<!-- koniec div srodkowe menu-->
 		
@@ -48,11 +49,21 @@ include_once  'include/meta.inc.php';
                                             PASSWORD1: <input type="password" size="30" maxlength="40" name="pass1" /><br /><br />
                                             EMAIL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="30" maxlength="40" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"/><br /><br />
                                             EMAIL1: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="30" maxlength="40" name="email1" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; ?>"/><br /><br />
+                                            <img src="captcha/securimage/securimage_show.php" id="image" align="absmiddle" /> <br> 
+                                            Captcha code: <input type="text" name="code" size="10" maxlength="6"> 
+                                            <a href="registration.php" onclick="document.getElementById('captcha').src = 'captcha/securimage/securimage_show.php?' + Math.random(); return false">[ Different Image ]</a>
+                                            
                                             <input type="submit" value=" Send " />
                                             </form>
                                             
+                                  
                                             
-<?php                                            
+                                            
+<?php
+
+
+
+
 connect();
 $wyborbazy = mysql_select_db("matys_baza");
 //mysql_query("SET CHARACTER SET UTF8");
@@ -66,12 +77,16 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
             {
                 if (($_SESSION["ifadded"]) == ($_POST['login'].$_POST['password'].$_POST['password1'].$_POST['email'].$_POST['email1'])) 
                 {
-                    echo "you have already added!";
-                    exit;
+                    die ("you have already added!");
 
                 }
             }
-                
+            include_once ("captcha/securimage/securimage.php");
+            $img = new Securimage();
+            $valid = $img->check($_POST['code']);
+            if ($valid == FALSE) {
+              die('Wrong captcha code!');
+            }     
 
             $login = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
             $password = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);

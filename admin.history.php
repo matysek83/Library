@@ -79,8 +79,7 @@ if (isset($_SESSION["logged"]))
         $result = mysql_query($query) or die(mysql_error());
         if (empty ($result))
         {
-            echo "Empty database";
-            exit;
+            die ("Empty database");
         }
         else
         {
@@ -97,8 +96,7 @@ if (isset($_SESSION["logged"]))
 
                     if (($_GET['page'] > $num_of_pages) )
                     {
-                        echo "Site not exist!";
-                        exit;
+                        die ("Site not exist!");
                     }
 
 
@@ -106,9 +104,7 @@ if (isset($_SESSION["logged"]))
                     {
                         if (!is_numeric($_GET['page']))
                         {
-                            echo "Site not exist!";
-                            exit;
-                        }
+                            die ("Site not exist!");
                     }
                 }
 
@@ -485,6 +481,7 @@ if (isset($_SESSION["logged"]))
             <form name='form' action='admin.add.book.php' method=post><br />
             <input type='submit' style='padding:20px;' value='Add book' method='post'></form>
             <br><br></div>";
+        }
     }
 }
 else echo "You don't have permissions";

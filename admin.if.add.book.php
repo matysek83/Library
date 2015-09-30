@@ -108,8 +108,8 @@ if (isset($_SESSION['logged']))
                 {
                     if ($_SESSION["ifadded"] == $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'])
                     {
-                        echo "you have added once!";
-                        exit;
+                        die ("you have added once!");
+                        
                     }
                     if (isset($_POST['book_name1']) && isset($_POST['author1']) && isset($_POST['publishing_house1']) && isset($_POST['year_of_publication1']) && isset($_SESSION["ifadded"]))
                     {

@@ -47,14 +47,24 @@ include_once  'include/meta.inc.php';
 
 if (isset($_SESSION['logged']))
 {
+    
     connect();
+    include_once ("captcha/securimage/securimage.php");
     $choosedb = mysql_select_db("matys_baza") or die (mysql_error());
-    echo "<form method=post action='' name='form'>";
-    echo "Old password: &nbsp;&nbsp;<input type='password' name='oldpassword'><br>";
-    echo "New password: <input type='password' name='newpassword'><br>"; 
-    echo "New password: <input type='password' name='newpassword1'><br>"; 
-    echo "<input type='submit' value=' Send ' >";
-    echo "</form>";
+    {
+?>    
+
+    <form method=post action='' name='form'>
+    Old password: &nbsp;&nbsp;<input type='password' name='oldpassword'><br>
+    New password: <input type='password' name='newpassword'><br>
+    New password: <input type='password' name='newpassword1'><br>
+    <img src='captcha/securimage/securimage_show.php' id='image' align='absmiddle' /> <br>
+    code: <input type='text' name='code' size='10' maxlength='6'>
+    <a href="change.password.php" onclick="document.getElementById('captcha').src = 'captcha/securimage/securimage_show.php?' + Math.random(); return false">[ Different Image ]</a>
+    <input type='submit' value=' Send ' >
+    </form>
+ <?php
+    }
     $user_id = $_SESSION['user_id'];
     $query = "SELECT password FROM users WHERE user_id = '$user_id'";
     $result = mysql_query($query) or die(mysql_error());
@@ -62,12 +72,18 @@ if (isset($_SESSION['logged']))
     $oldpassword_from_db = $row['password'];
 
     
-    if (isset($_POST['oldpassword']) && isset($_POST['newpassword']) && isset($_POST['newpassword1']))
+    if (isset($_POST['oldpassword']) && isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POST['code']))
     {
-        if (!empty($_POST['oldpassword']) && !empty($_POST['newpassword']) && !empty($_POST['newpassword1']))
+        if (!empty($_POST['oldpassword']) && !empty($_POST['newpassword']) && !empty($_POST['newpassword1']) && !empty($_POST['code']))
         {
             if ($_POST['newpassword'] == $_POST['newpassword1'])
             {
+                $img = new Securimage();
+                $valid = $img->check($_POST['code']);
+                if ($valid == FALSE) {
+                  die('Wrong captcha code!');             
+                }
+                
                 $oldpassword = filter_var($_POST['oldpassword'], FILTER_SANITIZE_STRING);
                 $salt = "grogn540gnobvn5re5njy";
 

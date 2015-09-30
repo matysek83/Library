@@ -108,7 +108,7 @@ if (isset($_SESSION['searchname']))
     {
     $searchname = $_SESSION['searchname'];    
     $query = "
-            SELECT * from table_books
+            SELECT book_id from table_books
             WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%'
 
             ";
@@ -131,8 +131,7 @@ if (isset($_SESSION['searchname']))
 
                 if (($_GET['page'] > $num_of_pages) )
                 {
-                    echo "Site not exist!";
-                    exit;
+                    die ("Site not exist!");
                 }
 
 
@@ -140,8 +139,7 @@ if (isset($_SESSION['searchname']))
                 {
                     if (!is_numeric($_GET['page']))
                     {
-                        echo "Site not exist!";
-                        exit;
+                        die ("Site not exist!");
                     }
                 }
             }

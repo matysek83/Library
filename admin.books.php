@@ -109,7 +109,7 @@ if (isset($_SESSION["logged"]))
             $page = $_SESSION['page'];
         }
         */
-        $query = "SELECT * from table_books
+        $query = "SELECT book_id from table_books
                   ";
 
 

@@ -124,7 +124,7 @@ if ($_SESSION['logged'] == 3)
         {
         $searchname = $_SESSION['searchname'];    
         $query = "
-                SELECT * from table_books
+                SELECT book_id from table_books
                 WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%'
 
                 ";
@@ -147,8 +147,8 @@ if ($_SESSION['logged'] == 3)
 
                     if (($_GET['page'] > $num_of_pages) )
                     {
-                        echo "Site not exist!";
-                        exit;
+                        die ("Site not exist!");
+                        
                     }
 
 
@@ -156,8 +156,7 @@ if ($_SESSION['logged'] == 3)
                     {
                         if (!is_numeric($_GET['page']))
                         {
-                            echo "Site not exist!";
-                            exit;
+                            die ("Site not exist!");
                         }
                     }
                 }

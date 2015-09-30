@@ -45,41 +45,53 @@ include_once  'include/meta.inc.php';
                                             
 <?php
 connect();
+include_once ("captcha/securimage/securimage.php");
 if (empty($_POST['emailforpassword']) && empty($_GET['activation_password']))
 {
-    echo "<form action='' method='post' name='form'>
+?>          <form action='' method='post' name='form'>
             Type email: <input type='text' name='emailforpassword'><br>
-            12 plus 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' name='validation'><br><br>
+            <img src='captcha/securimage/securimage_show.php' id='image' align='absmiddle' /> <br>
+            code: <input type='text' name='code' size='10' maxlength='6'>
+            <a href="forgot.password.php" onclick="document.getElementById('captcha').src = 'captcha/securimage/securimage_show.php?' + Math.random(); return false">[ Different Image ]</a>
             <input type='submit' value=' Send '>
            </form>";
+<?php           
 }
 
 //sending email // select activation code from base
-if (isset($_POST['emailforpassword']) && isset($_POST['validation']))
+if (isset($_POST['emailforpassword']))
 {
-    if (!empty($_POST['emailforpassword']) && !empty($_POST['validation']))
+    if (!empty($_POST['emailforpassword']))
     {
         $emailforpassword = filter_var($_POST['emailforpassword'], FILTER_SANITIZE_EMAIL);
-        if ($_POST['validation'] == '15' && isset($emailforpassword))
+        if (isset($emailforpassword))
         {
-            $select = mysql_select_db("matys_baza");
-            $query = "SELECT login, activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";
-            $result = mysql_query($query) or die (mysql_error());
-            $row = mysql_fetch_assoc($result);
-            $activation_code = $row['activation_code'];
-            $login = $row['login'];
             
-            
-            $contents = "Hi $login ! Tap link to change password: <a href='http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code'>http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code</a>"; 
-            $subject = "Change password: http://matys.jupe24.pl/biblioteka/";
-            
-            $headlines = "Content-type: text/html; charset=UTF8\r\n".
-            "From: "."ismatys@onet.pl"."\r\n".
-            "Reply-to: "."ismatys@onet.pl"."\r\n";
-            if (mail($emailforpassword, $subject, $contents, $headlines))
-            {
-                echo "sended email";
+            $img = new Securimage();
+            $valid = $img->check($_POST['code']);
+            if ($valid == FALSE) {
+              die('Wrong captcha code!');             
             }
+            
+
+                $select = mysql_select_db("matys_baza");
+                $query = "SELECT login, activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";
+                $result = mysql_query($query) or die (mysql_error());
+                $row = mysql_fetch_assoc($result);
+                $activation_code = $row['activation_code'];
+                $login = $row['login'];
+
+
+                $contents = "Hi $login ! Tap link to change password: <a href='http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code'>http://matys.jupe24.pl/biblioteka/forgot.password.php?activation_password=$activation_code</a>"; 
+                $subject = "Change password: http://matys.jupe24.pl/biblioteka/";
+
+                $headlines = "Content-type: text/html; charset=UTF8\r\n".
+                "From: "."ismatys@onet.pl"."\r\n".
+                "Reply-to: "."ismatys@onet.pl"."\r\n";
+                if (mail($emailforpassword, $subject, $contents, $headlines))
+                {
+                    echo "sended email";
+                }
             
         }
         
@@ -143,7 +155,8 @@ if (isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POS
 
 
 disconnect();                                           
-                                            
+ini_set('display_errors', 1);
+error_reporting(E_ALL);                                             
                                             
                                             
                                             

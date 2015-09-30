@@ -42,7 +42,8 @@ include_once  'include/meta.inc.php';
 				<div id="gorna_czesc_zawartosci"></div>
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
-						
+                                            <p> Welcome to Library. Register first than you can borrow books.
+                                                
 					</div>
 					
 					
