@@ -44,7 +44,7 @@ include_once  'include/meta.inc.php';
 					<div id="tekst">
                                             
 <?php
-connect();
+$db_h = connect();
 include_once ("captcha/securimage/securimage.php");
 if (empty($_POST['emailforpassword']) && empty($_GET['activation_password']))
 {
@@ -74,10 +74,9 @@ if (isset($_POST['emailforpassword']))
             }
             
 
-                $select = mysql_select_db("matys_baza");
                 $query = "SELECT login, activation_code FROM users WHERE email='$emailforpassword' LIMIT 1";
-                $result = mysql_query($query) or die (mysql_error());
-                $row = mysql_fetch_assoc($result);
+                $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+                $row = mysqli_fetch_assoc($result);
                 $activation_code = $row['activation_code'];
                 $login = $row['login'];
 
@@ -98,6 +97,7 @@ if (isset($_POST['emailforpassword']))
         
     }
 }
+if (isset($row['login']))
 $login = $row['login'];
 // write new password // chcecking if adde once
 if (isset($_GET['activation_password']))
@@ -141,7 +141,7 @@ if (isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POS
                 $salt = "grogn540gnobvn5re5njy";     
                 $newpassword = hash("sha512", $salt.$newpassword);
                 $query = "UPDATE users SET password = '$newpassword' WHERE activation_code = '$activation_code'"; 
-                $result = mysql_query($query) or die (mysql_error());
+                $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                 if ($result)
                 {
                     echo "$login You have changed password";
@@ -154,7 +154,7 @@ if (isset($_POST['newpassword']) && isset($_POST['newpassword1']) && isset($_POS
     
 
 
-disconnect();                                           
+disconnect();;                                           
 ini_set('display_errors', 1);
 error_reporting(E_ALL);                                             
                                             

@@ -1,4 +1,4 @@
-<?php
+<?
 include_once 'include/session.start.inc.php';
 ?>
 <!--metatagi, kodowanie, skrypt google analitics-->
@@ -13,7 +13,7 @@ include "include/meta.inc.php";
 	<div align="center">		
 		<div id="kontener">
 			<div id="panel">
-				<div id="formularz"><?php include_once 'include/login.user.php';	?>
+				<div id="formularz"><?include_once 'include/login.user.php';	?>
 		
 				
 				
@@ -52,9 +52,9 @@ if (isset($_SESSION["logged"]))
 {
     if ($_SESSION["logged"] == 3)
     {
-        $db_h = connect();
+        connect();
 
-        
+        $wyborbazy = mysql_select_db("matys_baza");
 
         $book_id = filter_var($_GET['book_id'], FILTER_SANITIZE_STRING);
         $book_name = filter_var($_POST['book_name'], FILTER_SANITIZE_STRING);
@@ -62,13 +62,15 @@ if (isset($_SESSION["logged"]))
         $publishing_house = filter_var($_POST['publishing_house'], FILTER_SANITIZE_STRING);
         $year_of_publication = filter_var($_POST['year_of_publication'], FILTER_SANITIZE_STRING);
         $binding = filter_var($_POST['binding'], FILTER_SANITIZE_NUMBER_INT);
+        $availability = filter_var($_POST['availability'], FILTER_SANITIZE_NUMBER_INT);
         
-        $book_id = mysqli_real_escape_string($db_h, $book_id);
-        $book_name = mysqli_real_escape_string($db_h, $book_name);
-        $publishing_house = mysqli_real_escape_string($db_h, $publishing_house);
-        $publishing_house = mysqli_real_escape_string($db_h, $publishing_house);
-        $year_of_publication = mysqli_real_escape_string($db_h, $year_of_publication);
-        $binding = mysqli_real_escape_string($db_h, $binding);
+        $book_id = mysql_real_escape_string($book_id);
+        $book_name = mysql_real_escape_string($book_name);
+        $publishing_house = mysql_real_escape_string($publishing_house);
+        $publishing_house = mysql_real_escape_string($publishing_house);
+        $year_of_publication = mysql_real_escape_string($year_of_publication);
+        $binding = mysql_real_escape_string($binding);
+        $availability = mysql_real_escape_string($availability);
 
         
 
@@ -77,16 +79,20 @@ if (isset($_SESSION["logged"]))
             author = '$author',
             publishing_house = '$publishing_house',
             year_of_publication = '$year_of_publication',
-            binding = '$binding'
-            WHERE book_id = $book_id
+            binding = $binding,
+            availability = $availability
+            WHERE book_id= '$book_id'
             ";
-        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+        $result = mysql_query($query) or die(mysql_error());
 
         if ($binding == 1)
             $binding = "hard";
             else $binding = "soft";
 
-                        
+            if ($availability ==1)
+            $availability = "avaiable";
+            else $availability = "not avaiable";
+            
         if ($result) 
         {
             echo "Added entry: <br>";
@@ -96,10 +102,11 @@ if (isset($_SESSION["logged"]))
             echo "Publishing house: ".$publishing_house."<br>";
             echo "Year of publication: ".$year_of_publication."<br>";
             echo "Binding: ".$binding."<br>";
+            echo "Availability: ".$availability."<br>";
         }
         else echo "false";
 
-        disconnect();;
+        disconnect();
     }
     
 }

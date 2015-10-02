@@ -53,9 +53,8 @@ include 'include/meta.inc.php';
                                                 <br>        
 
 <?php
-connect();
+$db_h = connect();
 
-$wyborbazy = mysql_select_db("matys_baza");
 
 
 if (isset($_SESSION['logged']))
@@ -66,7 +65,7 @@ if (isset($_GET['sortby1']))
 $_GET['sortby1'] = filter_var($_GET['sortby1'], FILTER_SANITIZE_STRING);
 $_SESSION['sortby1'] = $_GET['sortby1'];
 $sortby = $_SESSION['sortby1'];
-$sortby = mysql_real_escape_string($sortby);
+$sortby = mysqli_real_escape_string($db_h, $sortby);
 }
 
 
@@ -75,7 +74,7 @@ if (isset($_GET['dir']))
 $_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
 $_SESSION['dir'] = $_GET['dir'];
 $dir = $_SESSION['dir'];
-$dir = mysql_real_escape_string($dir);
+$dir = mysqli_real_escape_string($db_h, $dir);
 }
 
 
@@ -92,13 +91,13 @@ if (isset($_POST['searchname']))
 $_POST['searchname'] = filter_var($_POST['searchname'], FILTER_SANITIZE_STRING);
 $_SESSION['searchname'] = $_POST['searchname'];
 $searchname = $_SESSION['searchname'];
-$searchname = mysql_real_escape_string($searchname);
+$searchname = mysqli_real_escape_string($db_h, $searchname);
 }
 
 if (isset($_SESSION['user_id']))
 {
     $user_id = filter_var($_SESSION['user_id'], FILTER_SANITIZE_STRING);
-    $user_id = mysql_real_escape_string($user_id);
+    $user_id = mysqli_real_escape_string($db_h, $user_id);
 }
         
 
@@ -112,11 +111,11 @@ if (isset($_SESSION['searchname']))
             WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%'
 
             ";
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
     
     
     
-        $counter = mysql_num_rows($result);
+        $counter = mysqli_num_rows($result);
         $num_of_pages = ceil($counter/10);    
     
     
@@ -345,7 +344,7 @@ if (isset($_SESSION['searchname']))
 
             ";
         if (!empty($query))
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
         else "empty";
         $how_much_loops = 0;
         $i = 0;
@@ -355,10 +354,10 @@ if (isset($_SESSION['searchname']))
         }
         else
         {
-            while($row = mysql_fetch_assoc($result))
+            while($row = mysqli_fetch_assoc($result))
             {
 
-                $i =  mysql_real_escape_string($i);
+                $i =  mysqli_real_escape_string($db_h, $i);
                 if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                 {
                     //if (!empty($_GET['sortby1']) && !empty($_GET['dir']))  - przy włącznonym wyświetla to samo 10 razy
@@ -368,8 +367,8 @@ if (isset($_SESSION['searchname']))
                 }
                 else  $query = "SELECT * from table_books WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%' LIMIT 10 OFFSET $i";
                  //$query = "SELECT * from table_books ORDER BY book_name DESC LIMIT 10 OFFSET $i";
-                $result = mysql_query($query) or die(mysql_error());
-                $row = mysql_fetch_assoc($result);
+                $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                $row = mysqli_fetch_assoc($result);
                 if ($how_much_loops >= 10) break;
                 echo "<tr>";
 
@@ -385,11 +384,11 @@ if (isset($_SESSION['searchname']))
                 else $row['availability'] = "not available";
                 $book_id = $row['book_id'];
                 echo "<td>".($i+1)."</td>";
-                echo "<td>".$row['book_id']."</td>";
-                echo "<td>".$row['book_name']."</td>";
+                echo "<td>".$row['book_id']."</td>"; 
                 echo "<td>".chunk_split($row['book_name'], 20, "<br>")."</td>";
                 echo "<td>".chunk_split($row['author'], 20, "<br>")."</td>";
                 echo "<td>".chunk_split($row['publishing_house'], 20, "<br>")."</td>";
+                echo "<td>".$row['year_of_publication']."</td>";
                 echo "<td>".$row['binding']."</td>";
                 echo "<td>".$row['availability'] ;
                 if ($row['availability'] == "available")
@@ -429,7 +428,7 @@ if (isset($_SESSION['searchname']))
             for ($i = $from_which; $i <=$to_which; $i++)
             {
 
-                $i =  mysql_real_escape_string($i);
+                $i =  mysqli_real_escape_string($db_h, $i);
                 if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                 {
                     $sortby = $_SESSION['sortby1'];
@@ -440,8 +439,8 @@ if (isset($_SESSION['searchname']))
 
                 if ($i>=$counter) break;
 
-                $result = mysql_query($query) or die(mysql_error());
-                $row = mysql_fetch_assoc($result);
+                $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                $row = mysqli_fetch_assoc($result);
 
                 if ($how_much_loops >= 10) break;
                 echo "<tr>";
@@ -590,7 +589,7 @@ echo "<div style='text-align: center;'>";
 echo "<br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"searchbooks.php?sortby1=book_id&dir=ASC\"' />
 <br><br>";
 echo "</div>";
-disconnect();
+disconnect();;
 
 ?>
                                             </div>

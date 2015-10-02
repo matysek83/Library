@@ -50,7 +50,7 @@ if (isset($_SESSION['logged']))
 {
     if ($_SESSION['logged'] == 3)
     {
-        connect();
+        $db_h = connect();
         echo
         "<table bgcolor=#EEEEEE border=1><tr>
         <th align=center>Book name</th>
@@ -160,14 +160,7 @@ if (isset($_SESSION['logged']))
 
 
 
-        connect();
-
-        if (!mysql_select_db("matys_baza"))
-        {
-            echo "Creating new database...<br />";
-            $baza = mysql_query("CREATE DATABASE table_books;");
-        }
-        $wyborbazy = mysql_select_db("matys_baza");
+        $db_h = connect();       
 
         if (isset($_POST['captcha']) && isset($file))
         {
@@ -182,16 +175,16 @@ if (isset($_SESSION['logged']))
                     $tablica = explode("|", $linia);
 
 
-                    $query = "INTO TABLE table_books 
-                        (book_name, author, publishing_house, year_of_publication, binding)
-                        VALUES ($pierwszafraza[0], $pierwszafraza[1], $pierwszafraza[2], $pierwszafraza[3], $pierwszafraza[4])  
+                    $query = "INSERT INTO table_books 
+                        (book_name, author, publishing_house, year_of_publication, binding, availability)
+                        VALUES ('$tablica[0]', '$tablica[1]', '$tablica[2]', $tablica[3], $tablica[4], 2)  
                         ";
 
-                    mysql_query($query) or die(mysql_error());
+                    mysqli_query($db_h, $query) or die(mysqli_error($db_h));
                 }
             }
         }
-        disconnect();
+        disconnect();;
         error_reporting(E_ALL);
     }
 }

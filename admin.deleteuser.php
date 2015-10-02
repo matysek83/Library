@@ -47,10 +47,10 @@ if (isset($_SESSION['logged']))
 {
     if ($_SESSION['logged'] == 3)
     {
-        connect();
+        $db_h = connect();
 
 
-        $choosedb = mysql_select_db("matys_baza");
+        
 
         $user_id = filter_var($_GET['user_id'], FILTER_SANITIZE_NUMBER_INT);
         $query = "DELETE FROM users
@@ -59,13 +59,13 @@ if (isset($_SESSION['logged']))
 
             ";
 
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
         if ($result)
         {
             echo "You have delete entry: ".$user_id;
         }
         else echo "Delete entry error! ID: $user_id";
-        disconnect();
+        disconnect();;
     }else echo "Site not exists";
 }
 

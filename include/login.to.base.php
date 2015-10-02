@@ -1,24 +1,30 @@
 <?php
-function connect($host = "localhost", $user = "root", $password = "")
+function connect($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
 {
-    $db = mysql_connect($host, $user, $password);
-    if (!$db)
+    $db_h = mysqli_connect($host, $user, $password, $dbname);
+    if (!$db_h)
     {
         echo "connect error"; 
         
     }
     //else echo "polaczenie zostalo nawiazane poprawnie<br />";
-    mysql_set_charset("utf8");
+    mysqli_set_charset($db_h, "utf8");
+    return $db_h;
 }
 
-function disconnect($host = "localhost", $user = "root", $password = "")
+function db_handler($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
 {
-    $db = mysql_connect($host, $user, $password);
-    if (!$db)
+   return $db_h = mysqli_connect($host, $user, $password, $dbname); 
+}
+
+function disconnect($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
+{
+    $db_h = mysqli_connect($host, $user, $password, $dbname);
+    if (!$db_h)
     {
         echo "disconnect error";
        
     }
-    mysql_close($db);
+    mysqli_close($db_h);
 }
 ?>

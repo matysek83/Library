@@ -48,7 +48,7 @@ if (isset($_SESSION["logged"]))
 {
     if ($_SESSION["logged"] == 3)
     {
-        connect();
+        $db_h = connect();
 
         echo "<table bgcolor=#EEEEEE border=1 width='920'>
                 <thead>
@@ -62,15 +62,15 @@ if (isset($_SESSION["logged"]))
                 </thead>";
         
         
-        $wyborbazy = mysql_select_db("matys_baza");
+        
         $edit_id = filter_var($_GET['book_id'], FILTER_SANITIZE_STRING);
-        $edit_id = mysql_real_escape_string($edit_id);
+        $edit_id = mysqli_real_escape_string($db_h, $edit_id);
         $query = "SELECT * from table_books WHERE book_id='$edit_id'";
-        $result = mysql_query($query) or die(mysql_error());
-        mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+        mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
         
-        $row = mysql_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
         if ($row['binding'] == 1)
         $row['binding'] = "hard";
         else $row['binding'] = "soft";
@@ -136,4 +136,4 @@ else echo "You don't have permissions";
 		
 	</body>
 </html>
-<?php disconnect(); ?>
+<?php disconnect();; ?>

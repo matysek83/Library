@@ -48,9 +48,8 @@ include_once  'include/meta.inc.php';
 if (isset($_SESSION['logged']))
 {
     
-    connect();
+    $db_h = connect();
     include_once ("captcha/securimage/securimage.php");
-    $choosedb = mysql_select_db("matys_baza") or die (mysql_error());
     {
 ?>    
 
@@ -67,8 +66,8 @@ if (isset($_SESSION['logged']))
     }
     $user_id = $_SESSION['user_id'];
     $query = "SELECT password FROM users WHERE user_id = '$user_id'";
-    $result = mysql_query($query) or die(mysql_error());
-    $row = mysql_fetch_assoc($result);
+    $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+    $row = mysqli_fetch_assoc($result);
     $oldpassword_from_db = $row['password'];
 
     
@@ -92,13 +91,12 @@ if (isset($_SESSION['logged']))
                 {
                     $newpassword = filter_var($_POST['newpassword'], FILTER_SANITIZE_STRING);
                     $newpassword = hash("sha512", $salt.$newpassword);
-                    $selectdb = mysql_select_db("matys_baza");
                     $query = "SELECT password FROM users WHERE password = '$oldpassword'";
-                    $result = mysql_query($query) or die (mysql_error());
+                    $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                     if ($result)
                     {
                         $query = "UPDATE users SET password = '$newpassword' WHERE user_id = $user_id";
-                        $result = mysql_query($query) or die (mysql_error());
+                        $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         if ($result)
                         {
                             echo "you have changed password";    

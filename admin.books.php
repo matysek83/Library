@@ -64,10 +64,11 @@ function clean($var, $name)
 {
     if (isset($_GET[$var]))
     {
+        $db_h = connect();
         $_GET[$var] = filter_var($_GET[$var], FILTER_SANITIZE_STRING);
         $_SESSION[$var] = $_GET[$var];
         $name = $_SESSION[$var];
-        $name = mysql_real_escape_string($name);
+        $name = mysqli_real_escape_string($db_h, $name);
     }
 }
 
@@ -77,19 +78,22 @@ if (isset($_SESSION["logged"]))
 {
     if ($_SESSION["logged"] == 3 )
     {
-        connect();
-        $choosedb = mysql_select_db("matys_baza");
-        clean('sortby1', $sortby);
-        clean('dir', $dir);
-        clean('page', $page);
         
+        
+        $db_h = connect();
+        if (isset($_GET['sortby1']))
+        $_SESSION['sortby1'] = $_GET['sortby1'];
+        if (isset($_GET['dir']))
+        $_SESSION['dir'] = $_GET['dir'];
+        if (isset($_GET['page']))
+        $_SESSION['page'] = $_GET['page'];
         /*
         if (isset($_GET['sortby1']))
         {
             $_GET['sortby1'] = filter_var($_GET['sortby1'], FILTER_SANITIZE_STRING);
             $_SESSION['sortby1'] = $_GET['sortby1'];
             $sortby = $_SESSION['sortby1'];
-            $sortby = mysql_real_escape_string($sortby);
+            $sortby = mysqli_real_escape_string($db_h, $sortby);
         }
 
 
@@ -98,7 +102,7 @@ if (isset($_SESSION["logged"]))
             $_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
             $_SESSION['dir'] = $_GET['dir'];
             $dir = $_SESSION['dir'];
-            $dir = mysql_real_escape_string($dir);
+            $dir = mysqli_real_escape_string($db_h, $dir);
         }
 
 
@@ -115,7 +119,7 @@ if (isset($_SESSION["logged"]))
 
 
 
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
         if (empty ($result))
         {
             echo "Empty database";
@@ -123,7 +127,7 @@ if (isset($_SESSION["logged"]))
         }
         else
         {
-            $counter = mysql_num_rows($result);
+            $counter = mysqli_num_rows($result);
             $num_of_pages = ceil($counter/10);
             if (isset($_GET['page']))
             {
@@ -397,13 +401,16 @@ if (isset($_SESSION["logged"]))
              {
                 $how_much_loops = 0;
                 $i = 0;
-                while($row = mysql_fetch_assoc($result))
+                while($row = mysqli_fetch_assoc($result))
                 {
-                    $i =  mysql_real_escape_string($i);
+                    $i =  mysqli_real_escape_string($db_h, $i);
                     if (isset($_SESSION['sortby1']) && (isset($_SESSION['dir'])))
                     {
-                        $sortby = $_SESSION['sortby1'];
-                        $dir = $_SESSION['dir'];
+                        $sortby = filter_var($_SESSION['sortby1'], FILTER_SANITIZE_STRING);
+                        $sortby = mysqli_real_escape_string($db_h, $sortby);
+                        $dir = filter_var($_SESSION['dir'], FILTER_SANITIZE_STRING);
+                        $dir = mysqli_real_escape_string($db_h, $dir);
+                        
                         $query = "SELECT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
                     }
                     else $query = "SELECT * from table_books LIMIT 10 OFFSET $i";
@@ -412,8 +419,8 @@ if (isset($_SESSION["logged"]))
                     if ($how_much_loops >= 10) break;
 
 
-                    $result = mysql_query($query) or die(mysql_error());
-                    $row = mysql_fetch_assoc($result);
+                    $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                    $row = mysqli_fetch_assoc($result);
                     if ($row['binding'] == 1)
                     $row['binding'] = "hard";
                     else $row['binding'] = "soft";
@@ -469,19 +476,21 @@ if (isset($_SESSION["logged"]))
 
                     for ($i = $from_which; $i <=$to_which; $i++)
                     {
-                        $i =  mysql_real_escape_string($i);
+                        $i =  mysqli_real_escape_string($db_h, $i);
                         if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
                         {
-                            $sortby = $_SESSION['sortby1'];
-                            $dir = $_SESSION['dir'];
+                            $sortby = filter_var($_SESSION['sortby1'], FILTER_SANITIZE_STRING);
+                            $sortby = mysqli_real_escape_string($db_h, $sortby);
+                            $dir = filter_var($_SESSION['dir'], FILTER_SANITIZE_STRING);
+                            $dir = mysqli_real_escape_string($db_h, $dir);
                             $query = "SELECT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
                         }
                         else $query = "SELECT * from table_books LIMIT 10 OFFSET $i";
 
                         if ($i>=$counter) break;
 
-                        $result = mysql_query($query) or die(mysql_error());
-                        $row = mysql_fetch_assoc($result);
+                        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                        $row = mysqli_fetch_assoc($result);
 
                         if ($how_much_loops >= 10) break;
 
@@ -602,7 +611,7 @@ if (isset($_SESSION["logged"]))
     }
 }
 else echo "You don't have permissions";
-disconnect();
+disconnect();;
 error_reporting();
  ?>
 

@@ -15,7 +15,7 @@ if (($_GET['action']) == "log_out")
     session_destroy();
     echo "You are succefully log out<br />";
 }
-connect();
+$db_h = connect();
 
 if (isset($_GET['activation_code']))
 {
@@ -23,14 +23,13 @@ if (isset($_GET['activation_code']))
     {
         connect;
         $login = $_SESSION["login"];
-        $login = mysql_real_escape_string($login);
-        $wyborbazy = mysql_select_db("matys_baza");
+        $login = mysqli_real_escape_string($db_h, $login);
         $query = "SELECT login, password, email, permissions, activation_code FROM users WHERE login = '$login' LIMIT 1
             ";
-        $result = mysql_query($query) or die (mysql_error());
-        $row = mysql_fetch_assoc($result);
+        $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+        $row = mysqli_fetch_assoc($result);
         $activation_code = $row["activation_code"];
-        $activation_code = mysql_real_escape_string($activation_code);
+        $activation_code = mysqli_real_escape_string($db_h, $activation_code);
         $email = $row['email'];
 
 
@@ -61,13 +60,13 @@ if ((isset($_POST['login']) && (isset($_POST['password']))) && empty($_SESSION['
     $_POST['password'] = hash("sha512", $salt.$_POST['password']);
 
 
-    connect();
-    $wyborbazy = mysql_select_db("matys_baza");
+    $db_h = connect();
+    
     $query = 
         "SELECT user_id, login, password, email, permissions, activation_code FROM users WHERE login = '$login' LIMIT 1
         ";
-    $result = mysql_query($query) or die (mysql_error());
-    $row = mysql_fetch_assoc($result);
+    $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+    $row = mysqli_fetch_assoc($result);
     $activation_code = $row['activation_code'];
     $_SESSION['user_id'] = $row['user_id'];   
 
@@ -166,7 +165,7 @@ LOG IN:
 <?php
 echo "<a style='align:center;' href='registration.php'>REGISTRATION </a>";
 }
-disconnect();
-//error_reporting(E_ALL);
-//ini_set('display_errors','1');
+disconnect();;
+error_reporting(E_ALL);
+ini_set('display_errors','1');
 ?>

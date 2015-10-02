@@ -49,8 +49,7 @@ if (isset($_SESSION['logged']))
     if ($_SESSION['logged']==3)
     {
         
-        connect();
-        $choose_database = mysql_select_db("matys_baza");
+        $db_h = connect();
         if (isset($_GET['user_id']))
         {
             $user_id = filter_var($_GET['user_id'], FILTER_SANITIZE_STRING);
@@ -58,13 +57,13 @@ if (isset($_SESSION['logged']))
             { 
                 $book_id = $_GET['book_id'];
                 $query = "DELETE from orders WHERE book_id=$book_id";
-                $result_orders = mysql_query($query) or die (mysql_error());
+                $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                 $query = "UPDATE table_books SET availability = 0 WHERE book_id=$book_id";
-                $result_books = mysql_query($query) or die (mysql_error());
+                $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
             }
             $query = "SELECT user_id, login, email FROM users WHERE user_id = $user_id";
-            $result = mysql_query($query) or die(mysql_error());
-            $row = mysql_fetch_assoc($result);
+            $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+            $row = mysqli_fetch_assoc($result);
             $login = $row['login'];
             $email = $row['email'];
             echo "USER ID: $user_id <br>";
@@ -85,9 +84,9 @@ if (isset($_SESSION['logged']))
             </tr>";
             
             $query = "SELECT order_id, o.book_id, book_name, author, date_of_order, availability FROM (orders o LEFT JOIN table_books t ON o.book_id = t.book_id) WHERE user_id=$user_id AND availability=1 or availability=0 LIMIT 5";
-            $result = mysql_query($query) or die (mysql_error());      
+            $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));      
             $i = 0;
-            while ($row = mysql_fetch_assoc($result))
+            while ($row = mysqli_fetch_assoc($result))
             {
                 $i++;
                 if ($row['availability']==0)
@@ -130,9 +129,9 @@ if (isset($_SESSION['logged']))
                         if ($_SESSION['action'] != $_GET['book_id'].$_GET['user_id'].$_GET['action'])
                         {
                             $query = "DELETE from orders WHERE book_id=$book_id";
-                            $result_orders = mysql_query($query) or die (mysql_error());
+                            $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                             $query = "UPDATE table_books SET availability = 2 WHERE book_id=$book_id";
-                            $result_books = mysql_query($query) or die (mysql_error());
+                            $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                             $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                         }
                     }    
@@ -140,9 +139,9 @@ if (isset($_SESSION['logged']))
                 else 
                 {
                     $query = "DELETE from orders WHERE book_id=$book_id";
-                    $result_orders = mysql_query($query) or die (mysql_error());
+                    $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                     $query = "UPDATE table_books SET availability = 2 WHERE book_id=$book_id";
-                    $result_books = mysql_query($query) or die (mysql_error());
+                    $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                     $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                 }
             }
@@ -166,11 +165,11 @@ if (isset($_SESSION['logged']))
                             $query = " INSERT INTO borrowed_books (book_id, user_id) 
                                        VALUES($book_id, $user_id)
                                        ";
-                            $result_orders = mysql_query($query) or die (mysql_error());
+                            $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                             $query = "DELETE from orders WHERE book_id=$book_id";
-                            $result_orders = mysql_query($query) or die (mysql_error());
+                            $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                             $query = "UPDATE table_books SET availability = 0 WHERE book_id=$book_id";
-                            $result_books = mysql_query($query) or die (mysql_error());
+                            $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                             $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                         }
                     }
@@ -179,11 +178,11 @@ if (isset($_SESSION['logged']))
                         $query = " INSERT INTO borrowed_books (book_id, user_id) 
                                        VALUES($book_id, $user_id)
                                        ";
-                        $result_orders = mysql_query($query) or die (mysql_error());
+                        $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $query = "DELETE from orders WHERE book_id=$book_id";
-                        $result_orders = mysql_query($query) or die (mysql_error());
+                        $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $query = "UPDATE table_books SET availability = 0 WHERE book_id=$book_id";
-                        $result_books = mysql_query($query) or die (mysql_error());
+                        $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                     }    
                     
@@ -196,8 +195,8 @@ if (isset($_SESSION['logged']))
             {
                 $book_id = $_GET['book_id'];
                 $query = "SELECT borrowed_id, date_borrowed_book FROM borrowed_books WHERE book_id=$book_id";
-                $result = mysql_query($query) or die (mysql_error());      
-                $row = mysql_fetch_assoc($result);
+                $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));      
+                $row = mysqli_fetch_assoc($result);
                 $date_borrowed_book = $row['date_borrowed_book'];
                 $borrowed_id = $row['borrowed_id'];
 
@@ -213,11 +212,11 @@ if (isset($_SESSION['logged']))
                                    VALUES ($borrowed_id, $book_id, $user_id, '$date_borrowed_book')
                                    ";
 
-                        $result_orders = mysql_query($query) or die (mysql_error());
+                        $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $query = "UPDATE table_books SET availability = 2 WHERE book_id=$book_id";
-                        $result_books = mysql_query($query) or die (mysql_error());
+                        $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $query = "DELETE from borrowed_books WHERE book_id=$book_id";
-                        $delete_from_borrowed = mysql_query($query) or die (mysql_error());
+                        $delete_from_borrowed = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                         $_SESSION['action'] = $_GET['book_id'].$_GET['user_id'].$_GET['action'];
                     }
                 }
@@ -228,16 +227,16 @@ if (isset($_SESSION['logged']))
                                    VALUES ($borrowed_id, $book_id, $user_id, '$date_borrowed_book')
                                    ";
 
-                    $result_orders = mysql_query($query) or die (mysql_error());
+                    $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                     $query = "UPDATE table_books SET availability = 2 WHERE book_id=$book_id";
-                    $result_books = mysql_query($query) or die (mysql_error());
+                    $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
                     $query = "DELETE from borrowed_books WHERE book_id=$book_id";
-                    $delete_from_borrowed = mysql_query($query) or die (mysql_error()); 
+                    $delete_from_borrowed = mysqli_query($db_h, $query) or die (mysqli_error($db_h)); 
                 }
             }
         }    
         $query = "SELECT b.user_id, borrowed_id, t.book_id, book_name, author, date_borrowed_book FROM (table_books t RIGHT JOIN borrowed_books b ON b.book_id = t.book_id) WHERE b.user_id = $user_id ";
-        $result = mysql_query($query) or die (mysql_error());    
+        $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));    
         echo "<br><br>";
         echo "<h1> Borrowed books </h1>";
             echo "<table border='1' style='float: left; '>
@@ -255,7 +254,7 @@ if (isset($_SESSION['logged']))
 
 
 
-        while ($row = mysql_fetch_assoc($result))
+        while ($row = mysqli_fetch_assoc($result))
         {
             $i++;
 
@@ -273,7 +272,7 @@ if (isset($_SESSION['logged']))
         echo "</table>";
 
     }
-    disconnect();
+    disconnect();;
 }
 else echo "site not exists!";
 

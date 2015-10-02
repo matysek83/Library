@@ -51,8 +51,7 @@ if (isset($_SESSION['logged']))
 {
     if ($_SESSION['logged'] == 3)
     {
-        connect();
-        mysql_select_db("matys_baza");
+        $db_h = connect();
 
         if (empty($_POST["how_much_check"]))
         {
@@ -65,14 +64,7 @@ if (isset($_SESSION['logged']))
             {
 
                 if (!isset($_SESSION["ifadded"]) || $_SESSION["ifadded"] != $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'])
-                {
-
-                    if (!mysql_select_db("matys_baza"))
-                    {
-                        echo "Creating new database... <br />";
-                        $base = mysql_query("CREATE DATABASE matys_baza;");
-                    }
-                    $choosebase = mysql_select_db("matys_baza");
+                { 
 
                     $book_name = filter_var($_POST['book_name1'], FILTER_SANITIZE_STRING);
                     $author = filter_var($_POST['author1'], FILTER_SANITIZE_STRING);
@@ -82,11 +74,11 @@ if (isset($_SESSION['logged']))
 
 
                     $_SESSION["ifadded"] = $book_name.$author.$publishing_house.$year_of_publication;
-                    $add_data = mysql_query("
+                    $add_data = mysqli_query($db_h, "
                             INSERT INTO table_books (book_name, author, publishing_house, year_of_publication, binding, availability, date_added_book)
                             VALUES
                             ('$book_name', '$author', '$publishing_house', '$year_of_publication', '$binding', 2, (CURRENT_TIMESTAMP))
-                        ") or die(mysql_error());
+                        ") or die(mysqli_error($db_h));
 
                     if ($binding==1)
                     $binding = "hard";
@@ -106,16 +98,21 @@ if (isset($_SESSION['logged']))
             {
                 if (isset($_POST['book_name1']) && isset($_POST['author1']) && isset($_POST['publishing_house1']) && isset($_POST['year_of_publication1']))
                 {
+                    if (isset($_SESSION["ifadded"]))
                     if ($_SESSION["ifadded"] == $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'])
+                    {
+                        die ("you have added once!");
+                        
+                    }
+                    if (isset($_SESSION["ifaddedbook"]))
+                    if ($_SESSION["ifaddedbook"] == $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'])
                     {
                         die ("you have added once!");
                         
                     }
                     if (isset($_POST['book_name1']) && isset($_POST['author1']) && isset($_POST['publishing_house1']) && isset($_POST['year_of_publication1']) && isset($_SESSION["ifadded"]))
                     {
-                        if ($_SESSION["ifaddedbook"] != $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'])
-                        {
-
+                        
                             $how_much_check = filter_var($_POST["how_much_check"] , FILTER_SANITIZE_NUMBER_INT);
                             $_SESSION["ifaddedbook"] = $_POST['book_name1'].$_POST['author1'].$_POST['publishing_house1'].$_POST['year_of_publication1'];
                             for ($i=1; $i<=$how_much_check; $i++)
@@ -128,11 +125,11 @@ if (isset($_SESSION['logged']))
                                 //$availability = filter_var($_POST["availability"."$i"], FILTER_SANITIZE_STRING);
 
 
-                                $add_data = mysql_query("
+                                $add_data = mysqli_query($db_h, "
                                     INSERT INTO table_books (book_name, author, publishing_house, year_of_publication, binding, availability, date_added_book)
                                         VALUES
                                         ('$book_name', '$author', '$publishing_house', '$year_of_publication', '$binding', 2, (CURRENT_TIMESTAMP))
-                                    ") or die(mysql_error());
+                                    ") or die(mysqli_error($db_h));
 
                                 if ($binding==1)
                                 $binding = "hard";
@@ -148,10 +145,10 @@ if (isset($_SESSION['logged']))
 
             }else echo "blad4";
         }
-        else echo "You can't add many times";
+        
     }
-}
-        disconnect();
+
+        disconnect();;
 ?>
 <input type="button" value=" Back " onClick="parent.location.href='admin.add.book.php'">
 

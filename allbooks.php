@@ -44,34 +44,20 @@ include "include/meta.inc.php";
 					<div id="tekst">
                                             <div style="text-align: center;">
 <?php
-function clean($var, $name)
-{
-    if (isset($_GET[$var]))
-    {
-        $_GET[$var] = filter_var($_GET[$var], FILTER_SANITIZE_STRING);
-        $_SESSION[$var] = $_GET[$var];
-        $name = $_SESSION[$var];
-        $name = mysql_real_escape_string($name);
-    }
-}
+
 
 if (isset($_SESSION['logged']))
 $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
-connect();
-$wyborbazy = mysql_select_db("matys_baza");
+$db_h = connect();
 
-clean('sortby1', $sortby);
-clean('dir', $dir);
-clean('page', $page);
 
-/*
-if (isset($_GET['sortby']))
+if (isset($_GET['sortby1']))
 {
-$_GET['sortby'] = filter_var($_GET['sortby'], FILTER_SANITIZE_STRING);
-$_SESSION['sortby1'] = $_GET['sortby'];
+$_GET['sortby1'] = filter_var($_GET['sortby1'], FILTER_SANITIZE_STRING);
+$_SESSION['sortby1'] = $_GET['sortby1'];
 $sortby = $_SESSION['sortby1'];
-$sortby = mysql_real_escape_string($sortby);
+$sortby = mysqli_real_escape_string($db_h, $sortby);
 }
 
 
@@ -80,7 +66,7 @@ if (isset($_GET['dir']))
 $_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
 $_SESSION['dir'] = $_GET['dir'];
 $dir = $_SESSION['dir'];
-$dir = mysql_real_escape_string($dir);
+$dir = mysqli_real_escape_string($db_h, $dir);
 }
 
 
@@ -89,7 +75,7 @@ if (isset($_GET['page']))
 $_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
 $_SESSION['page'] = $_GET['page'];
 $page = $_SESSION['page'];
-}*/
+}
 
 if (isset($_SESSION['user_id']))
 {
@@ -97,12 +83,12 @@ if (isset($_SESSION['user_id']))
 }
 
 
-
+$db_h;
 
 $query = "SELECT * from table_books
           ";
 
-$result = mysql_query($query) or die(mysql_error());
+$result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
 if (empty ($result))
 {
@@ -113,7 +99,7 @@ else
 {
 
 
-    $counter = mysql_num_rows($result);
+    $counter = mysqli_num_rows($result);
     $num_of_pages = ceil($counter/10);
     if (isset($_GET['page']))
     {
@@ -346,15 +332,15 @@ else
     {
         $how_much_loops = 0;
         $i = 0;
-        while($row = mysql_fetch_assoc($result))
+        while($row = mysqli_fetch_assoc($result))
         {
-            $i =  mysql_real_escape_string($i);
+            $i =  mysqli_real_escape_string($db_h, $i);
             if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
             {
                 $sortby = $_SESSION['sortby1'];
                 $dir = $_SESSION['dir'];
-                $sortby = mysql_real_escape_string($sortby);
-                $dir = mysql_real_escape_string($dir);
+                $sortby = mysqli_real_escape_string($db_h, $sortby);
+                $dir = mysqli_real_escape_string($db_h, $dir);
                 $query = "SELECT * from table_books ORDER BY $sortby $dir, book_id ASC LIMIT 10 OFFSET $i";
             }
             
@@ -364,8 +350,8 @@ else
             if ($how_much_loops >= 10) break;
             echo "<tr>";
             
-            $result = mysql_query($query) or die(mysql_error());
-            $row = mysql_fetch_array($result, MYSQL_BOTH);
+            $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+            $row = mysqli_fetch_array($result, MYSQLI_BOTH);
             
             if ($row['binding'] == 1)
             $row['binding'] = "hard";
@@ -426,7 +412,7 @@ else
 
             for ($i = $from_which; $i <=$to_which; $i++)
             {
-                $i =  mysql_real_escape_string($i);
+                $i =  mysqli_real_escape_string($db_h, $i);
                 if (isset($_SESSION['sortby1']) && isset($_SESSION['dir']))
                 {
                 $sortby = $_SESSION['sortby1'];
@@ -435,8 +421,8 @@ else
                 }
                 else $query = "SELECT * from table_books LIMIT 10 OFFSET $i";
                 
-                $result = mysql_query($query) or die(mysql_error());
-                $row = mysql_fetch_array($result, MYSQL_BOTH);
+                $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                $row = mysqli_fetch_array($result, MYSQLI_BOTH);
                 
                                 
                 if ($i>=$counter) break;
@@ -571,7 +557,7 @@ else
     echo "<div style='text-align: center;'><br /><input type='button' style='padding:20px;' value=' Refresh ' onClick='parent.location.href=\"allbooks.php?sortby1=book_id&dir=ASC\"' />
     <br><br></div>";
 
-disconnect();
+disconnect();;
  ?>
                                             </div>             
 					</div>

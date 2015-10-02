@@ -48,12 +48,13 @@ $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
 function clean($var, $name)
 {
-    if (isset($_GET[$var]))
+    if (isset($_GET['sortby1']) && isset($_GET['dir']) || isset($_GET['page']))
     {
+        $db_h = connect();
         $_GET[$var] = filter_var($_GET[$var], FILTER_SANITIZE_STRING);
         $_SESSION[$var] = $_GET[$var];
         $name = $_SESSION[$var];
-        $name = mysql_real_escape_string($name);
+        $name = mysqli_real_escape_string($db_h, $name);
     }
 }
 
@@ -63,12 +64,13 @@ if (isset($_SESSION["logged"]))
 {
     if ($_SESSION["logged"] == 3 )
     {
-        connect();
-        $choosedb = mysql_select_db("matys_baza");
-        clean('sortby', $sortby);
-        clean('dir', $dir);
-        clean('page', $page);
-        
+        $db_h = connect();
+        if (isset($_GET['sortby']))
+        $_SESSION['sortby'] = $_GET['sortby'];
+        if (isset($_GET['dir']))
+        $_SESSION['dir'] = $_GET['dir'];
+        if (isset($_GET['page']))
+        $_SESSION['page'] = $_GET['page'];
         
         $query = "SELECT returned_id FROM returned_books
                   ";
@@ -76,14 +78,15 @@ if (isset($_SESSION["logged"]))
 
 
 
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
         if (empty ($result))
         {
-            die ("Empty database");
+            echo "Empty database";
+            exit;
         }
         else
         {
-            $counter = mysql_num_rows($result);
+            $counter = mysqli_num_rows($result);
             $num_of_pages = ceil($counter/10);
             if (isset($_GET['page']))
             {
@@ -96,7 +99,8 @@ if (isset($_SESSION["logged"]))
 
                     if (($_GET['page'] > $num_of_pages) )
                     {
-                        die ("Site not exist!");
+                        echo "Site not exist!";
+                        exit;
                     }
 
 
@@ -104,7 +108,9 @@ if (isset($_SESSION["logged"]))
                     {
                         if (!is_numeric($_GET['page']))
                         {
-                            die ("Site not exist!");
+                            echo "Site not exist!";
+                            exit;
+                        }
                     }
                 }
 
@@ -117,8 +123,8 @@ if (isset($_SESSION["logged"]))
                     <tr>
                         <th>LP</th>
                         <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
-                        <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                        <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                        <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &or;</a></th>
+                        <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                         <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                         <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                         <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -142,8 +148,8 @@ if (isset($_SESSION["logged"]))
                             <tr>
                                 <th>LP</th>
                                 <th><a href='admin.history.php?sortby=returned_id&dir=DESC'>Returned ID &and;</a></th>
-                                <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                                <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                                <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &or;</a></th>
+                                <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                                 <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                                 <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                                 <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -167,7 +173,7 @@ if (isset($_SESSION["logged"]))
                                     <th>LP</th>
                                     <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=borrowed_id&dir=DESC'>Borrowed ID &and;</a></th>
-                                    <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                                    <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                                     <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -194,7 +200,7 @@ if (isset($_SESSION["logged"]))
                                     <th>LP</th>
                                     <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                                    <th><a href='admin.history.php?sortby=returned_id&dir=DESC'>Book ID &and;</a></th>
+                                    <th><a href='admin.history.php?sortby=book_id&dir=DESC'>Book ID &and;</a></th>
                                     <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                                     <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -220,7 +226,7 @@ if (isset($_SESSION["logged"]))
                                     <th>LP</th>
                                     <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                                    <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                                    <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                                     <th><a href='admin.history.php?sortby=user_id&dir=DESC'>User ID &and;</a></th>
                                     <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                                     <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -245,7 +251,7 @@ if (isset($_SESSION["logged"]))
                                 <th>LP</th>
                                 <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                                 <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                                <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                                <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                                 <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                                 <th><a href='admin.history.php?sortby=date_borrowed_book&dir=DESC'>Date borrowed book &and;</a></th>
                                 <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -271,7 +277,7 @@ if (isset($_SESSION["logged"]))
                                         <th>LP</th>
                                         <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                                         <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                                        <th><a href='admin.history.php?sortby=returned_id&dir=ASSC'>Book ID &or;</a></th>
+                                        <th><a href='admin.history.php?sortby=book_id&dir=ASSC'>Book ID &or;</a></th>
                                         <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                                         <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                                         <th><a href='admin.history.php?sortby=date_of_return&dir=DESC'>Date of return book &and;</a></th>
@@ -296,7 +302,7 @@ if (isset($_SESSION["logged"]))
                             <th>LP</th>
                             <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Returned ID &or;</a></th>
                             <th><a href='admin.history.php?sortby=borrowed_id&dir=ASC'>Borrowed ID &and;</a></th>
-                            <th><a href='admin.history.php?sortby=returned_id&dir=ASC'>Book ID &or;</a></th>
+                            <th><a href='admin.history.php?sortby=book_id&dir=ASC'>Book ID &or;</a></th>
                             <th><a href='admin.history.php?sortby=user_id&dir=ASC'>User ID &or;</a></th>
                             <th><a href='admin.history.php?sortby=date_borrowed_book&dir=ASC'>Date borrowed book &or;</a></th>
                             <th><a href='admin.history.php?sortby=date_of_return&dir=ASC'>Date of return book &or;</a></th>
@@ -314,13 +320,15 @@ if (isset($_SESSION["logged"]))
             {
                 $how_much_loops = 0;
                 $i = 0;
-                while($row = mysql_fetch_assoc($result))
+                while($row = mysqli_fetch_assoc($result))
                 {
-                    $i =  mysql_real_escape_string($i);
+                    $i =  mysqli_real_escape_string($db_h, $i);
                     if (isset($_SESSION['sortby']) && (isset($_SESSION['dir'])))
                     {
-                        $sortby = $_SESSION['sortby'];
-                        $dir = $_SESSION['dir'];
+                        $sortby = filter_var($_SESSION['sortby'], FILTER_SANITIZE_STRING);
+                        $sortby = mysqli_real_escape_string($db_h, $sortby);
+                        $dir = filter_var($_SESSION['dir'], FILTER_SANITIZE_STRING);
+                        $dir = mysqli_real_escape_string($db_h, $dir);
                         $query = "SELECT * FROM returned_books ORDER BY $sortby $dir, returned_id ASC LIMIT 10 OFFSET $i";
                     }
                     else $query = "SELECT * FROM returned_books LIMIT 10 OFFSET $i";
@@ -329,8 +337,8 @@ if (isset($_SESSION["logged"]))
                     if ($how_much_loops >= 10) break;
 
 
-                    $result = mysql_query($query) or die(mysql_error());
-                    $row = mysql_fetch_assoc($result);
+                    $result = mysqli_query($db_h, $query) or die(mysql_error($db_h));
+                    $row = mysqli_fetch_assoc($result);
                     
                     echo "<tr>";
                     echo "<td>".($i+1)."</td>";
@@ -366,19 +374,21 @@ if (isset($_SESSION["logged"]))
 
                     for ($i = $from_which; $i <=$to_which; $i++)
                     {
-                        $i =  mysql_real_escape_string($i);
+                        $i =  mysqli_real_escape_string($db_h, $i);
                         if (isset($_SESSION['sortby']) && isset($_SESSION['dir']))
                         {
-                            $sortby = $_SESSION['sortby'];
-                            $dir = $_SESSION['dir'];
+                            $sortby = filter_var($_SESSION['sortby'], FILTER_SANITIZE_STRING);
+                            $sortby = mysqli_real_escape_string($db_h, $sortby);
+                            $dir = filter_var($_SESSION['dir'], FILTER_SANITIZE_STRING);
+                            $dir = mysqli_real_escape_string($db_h, $dir);
                             $query = "SELECT * from returned_books ORDER BY $sortby $dir, returned_id ASC LIMIT 10 OFFSET $i";
                         }
                         else $query = "SELECT * from returned_books LIMIT 10 OFFSET $i";
 
                         if ($i>=$counter) break;
 
-                        $result = mysql_query($query) or die(mysql_error());
-                        $row = mysql_fetch_assoc($result);
+                        $result = mysqli_query($db_h, $query) or die(mysql_error($db_h));
+                        $row = mysqli_fetch_assoc($result);
 
                         if ($how_much_loops >= 10) break;
 
@@ -481,7 +491,6 @@ if (isset($_SESSION["logged"]))
             <form name='form' action='admin.add.book.php' method=post><br />
             <input type='submit' style='padding:20px;' value='Add book' method='post'></form>
             <br><br></div>";
-        }
     }
 }
 else echo "You don't have permissions";

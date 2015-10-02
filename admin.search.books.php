@@ -51,29 +51,33 @@ include_once  'include/meta.inc.php';
                                                 </form>
                                                 <br>
 					<?php
+$db_h = connect();
 if (isset($_SESSION['logged']))                                        
 if ($_SESSION['logged'] == 3)
 {
     function clean($name, $var)
     {
-        if (isset($_GET['sortby1']))
-    {
-    $_GET[$name] = filter_var($_GET[$name], FILTER_SANITIZE_STRING);
-    $_SESSION[$name] = $_GET[$name];
-    $var = $_SESSION[$name];
-    $var = mysql_real_escape_string($var);
-    }
+        if (isset($_GET[$name]))
+        {
+            $db_h = connect();
+            $_GET[$name] = filter_var($_GET[$name], FILTER_SANITIZE_STRING);
+            $_SESSION[$name] = $_GET[$name];
+            $var = $_SESSION[$name];
+            $var = mysqli_real_escape_string($db_h, $var);
+        }
     }
     
-    connect();
-    $wyborbazy = mysql_select_db("matys_baza");
+
 
     
     if (isset($_SESSION['logged']))
     $_SESSION['logged'] = filter_var($_SESSION['logged'], FILTER_SANITIZE_STRING);
 
+    if (isset($sortby))
     clean('sortby1', $sortby);
+    if (isset($dir))
     clean('dir', $dir);
+    if (isset($page))
     clean('page', $page);
     
     /*
@@ -82,7 +86,7 @@ if ($_SESSION['logged'] == 3)
     $_GET['sortby1'] = filter_var($_GET['sortby1'], FILTER_SANITIZE_STRING);
     $_SESSION['sortby1'] = $_GET['sortby1'];
     $sortby = $_SESSION['sortby1'];
-    $sortby = mysql_real_escape_string($sortby);
+    $sortby = mysqli_real_escape_string($db_h, $sortby);
     }
 
 
@@ -91,7 +95,7 @@ if ($_SESSION['logged'] == 3)
     $_GET['dir'] = filter_var($_GET['dir'], FILTER_SANITIZE_STRING);
     $_SESSION['dir'] = $_GET['dir'];
     $dir = $_SESSION['dir'];
-    $dir = mysql_real_escape_string($dir);
+    $dir = mysqli_real_escape_string($db_h, $dir);
     }
 
 
@@ -108,13 +112,13 @@ if ($_SESSION['logged'] == 3)
     $_POST['searchname'] = filter_var($_POST['searchname'], FILTER_SANITIZE_STRING);
     $_SESSION['searchname'] = $_POST['searchname'];
     $searchname = $_SESSION['searchname'];
-    $searchname = mysql_real_escape_string($searchname);
+    $searchname = mysqli_real_escape_string($db_h, $searchname);
     }
 
     if (isset($_SESSION['user_id']))
     {
         $user_id = filter_var($_SESSION['user_id'], FILTER_SANITIZE_STRING);
-        $user_id = mysql_real_escape_string($user_id);
+        $user_id = mysqli_real_escape_string($db_h, $user_id);
     }
 
 
@@ -128,11 +132,11 @@ if ($_SESSION['logged'] == 3)
                 WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%'
 
                 ";
-            $result = mysql_query($query) or die(mysql_error());
+            $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
 
 
-            $counter = mysql_num_rows($result);
+            $counter = mysqli_num_rows($result);
             $num_of_pages = ceil($counter/10);    
 
 
@@ -362,7 +366,7 @@ if ($_SESSION['logged'] == 3)
 
                 ";
             if (!empty($query))
-            $result = mysql_query($query) or die(mysql_error());
+            $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
             else "empty";
             $how_much_loops = 0;
             if (empty($result))
@@ -374,7 +378,7 @@ if ($_SESSION['logged'] == 3)
                 for ($i = 0; $i <= ($counter-1); $i++)
                 {
 
-                    $i =  mysql_real_escape_string($i);
+                    $i =  mysqli_real_escape_string($db_h, $i);
                     if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                     {
                         //if (!empty($_GET['sortby1']) && !empty($_GET['dir']))  - przy włącznonym wyświetla to samo 10 razy
@@ -384,8 +388,8 @@ if ($_SESSION['logged'] == 3)
                     }
                     else  $query = "SELECT * from table_books WHERE author LIKE '%$searchname%' OR book_name LIKE '%$searchname%' LIMIT 10 OFFSET $i";
                      //$query = "SELECT * from table_books ORDER BY book_name DESC LIMIT 10 OFFSET $i";
-                    $result = mysql_query($query) or die(mysql_error());
-                    $row = mysql_fetch_assoc($result);
+                    $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                    $row = mysqli_fetch_assoc($result);
                     if ($how_much_loops >= 10) break;
                     echo "<tr>";
 
@@ -444,7 +448,7 @@ if ($_SESSION['logged'] == 3)
                 for ($i = $from_which; $i <=$to_which; $i++)
                 {
 
-                    $i =  mysql_real_escape_string($i);
+                    $i =  mysqli_real_escape_string($db_h, $i);
                     if (isset($_SESSION['sortby1'])&& isset($_SESSION['dir']))
                     {
                         $sortby = $_SESSION['sortby1'];
@@ -455,8 +459,8 @@ if ($_SESSION['logged'] == 3)
 
                     if ($i>=$counter) break;
 
-                    $result = mysql_query($query) or die(mysql_error());
-                    $row = mysql_fetch_assoc($result);
+                    $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+                    $row = mysqli_fetch_assoc($result);
 
                     if ($how_much_loops >= 10) break;
                     echo "<tr>";

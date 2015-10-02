@@ -43,10 +43,12 @@ include_once  'include/meta.inc.php';
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
 						<?php
-if (isset($_GET['page']))
-$_GET['page'] = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
+if (isset($_GET['page_guestbook']))
+{
+    $_GET['page_guestbook'] = filter_var($_GET['page_guestbook'], FILTER_SANITIZE_STRING);
+}
 $plik = "dane.txt";
-$wskaznik = @fopen($plik, "r");
+$wskaznik = fopen($plik, "r");
 $licznik = 0;
 if ($wskaznik)
 {
@@ -56,20 +58,23 @@ if ($wskaznik)
     }
 
     $ilosc_stron = ceil($licznik/10);
-    if (($_GET['page'] > $ilosc_stron) )
+    if (isset($_GET['page_guestbook']))
     {
-        echo "Site not exists!";
-        exit;
-    }
+        if (($_GET['page_guestbook'] > $ilosc_stron) )
+        {
+            echo "Site not exists!";
+            exit;
+        }
 
 
-        if ($_GET['page']!=NULL)
-        if (!is_numeric($_GET['page']))
+        if ($_GET['page_guestbook']!=NULL)
+        if (!is_numeric($_GET['page_guestbook']))
         {
             echo "Site not exists!";
             exit;
         }		
-    rewind($wskaznik);
+        rewind($wskaznik);
+    }
 }
 else echo "empty file!";
 fclose($wskaznik);
@@ -90,13 +95,14 @@ echo "<table border='1' align='center' cellspacing='1'>";
         
         
 $plik = "dane.txt";
-$wskaznik = @fopen($plik, "r+");
+$wskaznik = fopen($plik, "r+");
 if ($wskaznik)
 {
     //$tresc = fread($wskaznik, filesize($plik));
-    filter_var($_GET['page'], FILTER_SANITIZE_STRING);
+    if (isset($_GET['page_guestbook']))
+    filter_var($_GET['page_guestbook'], FILTER_SANITIZE_STRING);
 
-    if ($_GET['page']== '0' || $_GET['page']== '1' || empty($_GET['page']))
+    if (empty($_GET['page_guestbook']))
     {
         $ile_petli = 0;
         $tablica = file($plik);
@@ -112,8 +118,25 @@ if ($wskaznik)
         }
         echo "</table>";
     }
-
-
+    if (isset($_GET['page_guestbook']))
+    {
+        if ($_GET['page_guestbook']== '0' || $_GET['page_guestbook']== '1')
+        {
+            $ile_petli = 0;
+            $tablica = file($plik);
+            for ($i=0; $i<=count($tablica); $i+=2)
+            {
+                if (empty($tablica)) break;
+                if ($ile_petli >= 5) break;
+                if ($ile_petli>=$tablica) break;
+                if ($tablica[$i+1] == '') break;
+                echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i+1]."</td></tr>";
+                echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+2]."</td></tr>";
+                $ile_petli++;
+            }
+            echo "</table>";
+        }
+    }
 
     //obliczanie ilości stron
     $licznik = 0;
@@ -122,25 +145,29 @@ if ($wskaznik)
         $licznik++;
     }
     $ilosc_stron = ceil($licznik/10);
-    $odktorego = ((($_GET['page'])*10)-10);
-    $doktorego = $odktorego+9;
-
-
-    if (($_GET['page'])>=2)
+    if (isset($_GET['page_guestbook']))
     {
-        $ile_petli = 0;
-
-        $tablica = file($plik);
-        for ($i = $odktorego; $i<=$doktorego; $i+=2)
+        $odktorego = ((($_GET['page_guestbook'])*10)-10);
+        $doktorego = $odktorego+9;
+    }
+    if (isset($_GET['page_guestbook']))
+    {
+        if (($_GET['page_guestbook'])>=2)
         {
-            if ($i>=$licznik) break;
-            if ($ile_petli >=5 ) break;
-            if ($tablica[$i+1] == '') break;
-            echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
-            echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
-            $ile_petli++;
+            $ile_petli = 0;
+
+            $tablica = file($plik);
+            for ($i = $odktorego; $i<=$doktorego; $i+=2)
+            {
+                if ($i>=$licznik) break;
+                if ($ile_petli >=5 ) break;
+                if ($tablica[$i+1] == '') break;
+                echo "<tr><td>".($i/2+1)." nick </td><td>".$tablica[$i]."</td></tr>";
+                echo "<tr><td>".($i/2+1)." tekst</td><td>".$tablica[$i+1]."</td></tr>";
+                $ile_petli++;
+            }
+        echo "</table>";
         }
-    echo "</table>";
     }
 }
 else echo "File not exists"  ;
@@ -149,34 +176,39 @@ echo "<br><br>";
        
        //strzalki przód i tył
        $dwa = 2;
-       $strona_nastepna = $_GET['page']+1;
-       $strona_poprzednia = $_GET['page']-1;
-       
-       if (($_GET['page'])<=$ilosc_stron)
+       if (isset($_GET['page_guestbook']))
        {
-            if ($_GET['page'] >= 2)
+            $strona_nastepna = $_GET['page_guestbook']+1;
+            $strona_poprzednia = $_GET['page_guestbook']-1;
+
+            if (($_GET['page_guestbook'])<=$ilosc_stron)
             {
-                echo "<a href='guestbook.php?page=$strona_poprzednia'> < </a> ";
+                if ($_GET['page_guestbook'] >= 2)
+                {
+                    echo "<a href='guestbook.php?page_guestbook=$strona_poprzednia'> < </a> ";
+                }
             }
-        }
                 
 
-        for ($i=1; $i<=$ilosc_stron; $i++)
-        echo "<a href='guestbook.php?page=$i'> $i </a> ";
-        
+            for ($i=1; $i<=$ilosc_stron; $i++)
+            echo "<a href='guestbook.php?page_guestbook=$i'> $i </a> ";
 
-        if (($_GET['page'])>=1 )
-        {
-            if ($ilosc_stron > ($_GET['page']))
+
+            if (($_GET['page_guestbook'])>=1 )
             {
-                echo "<a href='guestbook.php?page=$strona_nastepna'> > </a> ";
+                if ($ilosc_stron > ($_GET['page_guestbook']))
+                {
+                    echo "<a href='guestbook.php?page_guestbook=$strona_nastepna'> > </a> ";
+                }
             }
         }
-
-        if (empty($_GET['page']))
+        
+        if (empty($_GET['page_guestbook']))
         {
+            for ($i=1; $i<=$ilosc_stron; $i++)
+            echo "<a href='guestbook.php?page_guestbook=$i'> $i </a> ";
             if ($ilosc_stron > 1)
-            echo "<a href='guestbook.php?page=$dwa'> > </a> ";
+            echo "<a href='guestbook.php?page_guestbook=$dwa'> > </a> ";
         }
              
         //$trescpoprawiona = explode(" ", $tresc);

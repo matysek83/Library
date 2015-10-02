@@ -48,10 +48,9 @@ if (isset($_POST['user_id']) && isset($_POST['login']) && isset($_POST['email'])
     if (!empty($_POST['user_id']) && !empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['permissions']) && !empty($_GET['user_id'])) 
     {
         
-        connect();
+        $db_h = connect();
         
-        
-        $choosedb = mysql_select_db("matys_baza") or die (mysql_error()); 
+         
         $user_id = filter_var($_POST['user_id'], FILTER_SANITIZE_STRING);
         $login = filter_var($_POST['login'], FILTER_SANITIZE_STRING);        
         $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
@@ -67,7 +66,7 @@ if (isset($_POST['user_id']) && isset($_POST['login']) && isset($_POST['email'])
                 WHERE user_id = $user_id_original
             
             "; 
-    $result = mysql_query($query) or die(mysql_error());  
+    $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));  
     if ($permissions == 1)
     $permissions = "not registered";
     else if ($permissions == 2)

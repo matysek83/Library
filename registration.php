@@ -64,9 +64,8 @@ include_once  'include/meta.inc.php';
 
 
 
-connect();
-$wyborbazy = mysql_select_db("matys_baza");
-//mysql_query("SET CHARACTER SET UTF8");
+$db_h = connect();
+//mysqli_query($db_h, "SET CHARACTER SET UTF8");
 if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) && isset($_POST['email']) && isset($_POST['email1']))
 {
     if ((!empty($_POST['login']) && (!empty($_POST['pass'])) && (!empty($_POST['pass1'])) && (!empty($_POST['email'])) && (!empty($_POST['email1']))))
@@ -98,7 +97,7 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
 
             if (isset($email))
             {
-                $wyborbazy = mysql_select_db("matys_baza");
+                
                 $query = "CREATE TABLE IF NOT EXISTS users
                         (id INT unsigned AUTO_INCREMENT,
                         login VARCHAR(50) NOT NULL UNIQUE,
@@ -110,7 +109,7 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
                         PRIMARY KEY (id))
                           ";
 
-                mysql_query($query) or die(mysql_error());
+                mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
 
                 $_SESSION["ifadded"] = $login.$password.$password1.$email.$email1; // czy dodany
@@ -130,7 +129,7 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['pass1']) &&
                 $sSql = "
                         INSERT INTO users (login, password, email, permissions, activation_code, date_added_entry) VALUES ('$login', '$password', '$email', 1 ,'$activation_code', (CURRENT_TIMESTAMP))
                                 ";
-                $query = mysql_query($sSql) or die(mysql_error());
+                $query = mysqli_query($db_h, $sSql) or die(mysqli_error($db_h));
                 if ($query)
                 {
                     echo 'written to database...';
@@ -156,15 +155,15 @@ if (isset($_GET["activation_code"]))
 	 $query = "UPDATE users SET
 		 permissions = 2
 		 WHERE activation_code = '$activation_code'";
-	 $result = mysql_query($query) or die (mysql_error());
-	 if (mysql_query($query) != NULL) echo "you are registered please re login! ";
+	 $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+	 if (mysqli_query($db_h, $query) != NULL) echo "you are registered please re login! ";
 	 else echo "error";
 
 
 }
     
 
-disconnect();
+disconnect();;
 error_reporting(E_ALL);					
                                             
                                             

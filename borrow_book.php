@@ -52,7 +52,7 @@ if (!empty($_GET['book_id']))
     
 $book_id = filter_var($_GET['book_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    connect();
+    $db_h = connect();
     $query = "INSERT INTO orders (user_id, book_id)
         VALUES ($user_id, $book_id)
             ";
@@ -63,7 +63,7 @@ $book_id = filter_var($_GET['book_id'], FILTER_SANITIZE_NUMBER_INT);
     
     
     
-    disconnect();
+    disconnect();;
 }
 
 

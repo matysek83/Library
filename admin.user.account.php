@@ -49,11 +49,10 @@ if (isset($_SESSION["logged"]))
 {
     if ($_SESSION["logged"] == 3)
     {
-        connect();
-        $choosedb = mysql_select_db("matys_baza") or die (mysql_error());
+        $db_h = connect();
     
         $query = "SELECT * from users";
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
 
         echo
@@ -68,9 +67,9 @@ if (isset($_SESSION["logged"]))
         </tr>";
 
 
-        for ($i = 0; $i < mysql_num_rows($result); $i++)
+        for ($i = 0; $i < mysqli_num_rows($result); $i++)
         {
-            $row = mysql_fetch_assoc($result);
+            $row = mysqli_fetch_assoc($result);
             if ($row['permissions'] == 1)
             $row['permissions'] = "not registered";
             else if ($row['permissions']==2)
@@ -103,7 +102,7 @@ if (isset($_SESSION["logged"]))
         </tr>";*/
 
     echo "</table>";
-    disconnect();
+    disconnect();;
     }
 else echo "You are not Administrator!";
 }

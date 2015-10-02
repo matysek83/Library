@@ -41,12 +41,11 @@ require_once 'include/login.to.base.php';
 				<div id="srodkowa_czesc_zawartosci">
 					<div id="tekst">
 						<?php
-							connect();
-							$choosedb = mysql_select_db("matys_baza") or die (mysql_error());
+							$db_h = connect();
 							$edit_id = $_GET['user_id'];
 							$query = "SELECT * from users WHERE user_id=$edit_id";
-							$result = mysql_query($query) or die(mysql_error());
-							mysql_query($query) or die(mysql_error());
+							$result = mysqli_query($db_h, $query) or die(mysqli_error($db_h));
+							mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
 							echo "<table class='fixed' bgcolor=#EEEEEE border=1 width='880'>
                                                          <tr>
@@ -58,7 +57,7 @@ require_once 'include/login.to.base.php';
 							</tr>";
 
 							
-							$row = mysql_fetch_assoc($result);
+							$row = mysqli_fetch_assoc($result);
 								if ($row['permissions'] == 1)
 								$row['permissions'] = "not registered";
 								else if ($row['permissions'] == 2)
@@ -101,7 +100,7 @@ require_once 'include/login.to.base.php';
                                                         echo "/>admin</td>";
 							echo "</tr></table>";
 							echo "<input type='submit' id='przycisk' name='Add Entry' value='Add Entry'></form>";
-                                                        disconnect();        
+                                                        disconnect();;        
 						?>
 
 							

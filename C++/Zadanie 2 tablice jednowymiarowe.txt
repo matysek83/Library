@@ -1,0 +1,29 @@
+#include "StdAfx.h"
+
+#include <iostream>
+
+#include <conio.h>
+
+
+using namespace std;
+
+
+
+int main()
+{
+system("cls");
+char tab[10] = {1, 254, 67, 31, 3, 75, 54, 55, 99, 157 };
+
+int i=0;
+
+while (i<=9)
+{
+	cout << tab[i] << endl;
+	i++;
+}
+
+	
+getch();
+	return 0;
+}
+    

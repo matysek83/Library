@@ -6,7 +6,7 @@ include_once 'include/session.start.inc.php';
 include_once  'include/meta.inc.php';
 ?>
 
-<title>PHP Library</title>
+<title>Programowanie C++, Turbo Pascal, PHP, Systemy UNIX - FreeBSD</title>
 
 </head>
 <body onload="zegar();">
@@ -45,38 +45,27 @@ include_once  'include/meta.inc.php';
                                             
                                             
                                             <?php
-$db_h = connect();
-if (isset($_SESSION['user_id']))
+connect();
+if (isset($_SESSION['logged']))
+if ($_SESSION['logged']==3)
 {
-    
-    echo "<p> Ordered books: </p>
-        <table border='1' style='float: left; '>
-            <tr>
-                <th>LP.</th>
-                <th>Order ID</th>
-                <th>Book ID</th>
-                <th>Book name</th>
-                <th>Author</th>
-                <th>Date of order</th>
-                <th>Availability</th>
-                <th>OPTIONS</th>
-
-            </tr>";
-    
-    $user_id = $_SESSION['user_id'];
-    if (isset($_GET['book_id']))
+    $choose_database = mysql_select_db("matys_baza");
+    $_GET['user_id'] = filter_var($_GET['user_id'], FILTER_SANITIZE_NUMBER_INT);
+    $_GET['book_id'] = filter_var($_GET['book_id'], FILTER_SANITIZE_NUMBER_INT);
+    if (isset($_GET['book_id']) && isset($_GET['user_id']))
     {
         $book_id = $_GET['book_id'];
+        $user_id = $_GET['user_id'];
         $query = "DELETE from orders WHERE book_id=$book_id";
-        $result_orders = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+        $result_orders = mysql_query($query) or die (mysql_error());
         $query = "UPDATE table_books SET availability = 2 WHERE book_id=$book_id";
-        $result_books = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
+        $result_books = mysql_query($query) or die (mysql_error());
     }
 
-    $query = "SELECT order_id, o.book_id, book_name, author, date_of_order, availability FROM (orders o LEFT JOIN table_books t ON o.book_id = t.book_id) WHERE user_id=$user_id AND availability=1 LIMIT 5";
-    $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h));
-    $i = 0;
-    while ($row = mysqli_fetch_assoc($result))
+    $query = "SELECT order_id, o.book_id, book_name, author, date_of_order, availability FROM (orders o LEFT JOIN table_books t ON o.book_id = t.book_id) WHERE user_id=$user_id AND availability=1 or availability=0 LIMIT 5";
+    $result = mysql_query($query) or die (mysql_error());      
+    /*$i = 0;
+    while ($row = mysql_fetch_assoc($result))
     {
                         $i++;
                         if ($row['availability']==0)
@@ -98,40 +87,10 @@ if (isset($_SESSION['user_id']))
                         echo "<td>You already have</a></td></tr>";   
 
     }
-    echo "</table><br /><br />";
-    echo "<br /><br />Borrowed books: ";
-    $query = "SELECT borrowed_id, t.book_id, book_name, author, date_borrowed_book FROM borrowed_books b RIGHT JOIN table_books t ON t.book_id=b.book_id WHERE user_id=$user_id AND availability=0 LIMIT 5";
-    $result = mysqli_query($db_h, $query) or die (mysqli_error($db_h)); 
-    echo "<table border='1' style='float: left;'>
-            <tr>
-                <th>LP.</th>
-                <th>Borrow ID</th>
-                <th>Book ID</th>
-                <th>Book name</th>
-                <th>Author</th>
-                <th>Date of borrow</th>
-                <th>Availability</th>
-
-            </tr>";
-    while ($row = mysqli_fetch_assoc($result))
-    {
-        $i++;
-        if ($row['availability']==0)
-            $row['availability']= 'borrowed';
-        if ($row['availability']==1)
-            $row['availability']= 'ordered';
-
-        $book_id = $row['book_id'];
-        echo "<tr><td>".$i."</td>";
-        echo "<td>".$row['borrowed_id']."</td>";
-        echo "<td>".$row['book_id']."</td>"; 
-        echo "<td>".$row['book_name']."</td>";
-        echo "<td>".$row['author']."</td>"; 
-        echo "<td>".$row['date_borrowed_book']."</td>";
-        echo "<td>".$row['availability']."</td>";
-    }
-}                                           
-echo "</table>";                                            
+    */
+}
+else "site not exist";
+//echo "</table>";                                            
                                             
                                             
                                             

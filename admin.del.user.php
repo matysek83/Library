@@ -46,7 +46,7 @@ include "include/meta.inc.php";
 						<?php
 
 						
-						connect();
+						$db_h = connect();
 
 
 						$choosebase = mysql_select_db("matys_baza");
@@ -58,9 +58,9 @@ include "include/meta.inc.php";
 
 							";
 						echo "usunięto wpis o id: ".$delete_id;
-						mysql_query($query) or die(mysql_error());
+						mysqli_query($db_h, $query) or die(mysqli_error($db_h));
 
-						disconnect();
+						disconnect();;
 						error_reporting(E_ALL);
 						?>
 					</div>
