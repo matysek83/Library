@@ -1,5 +1,5 @@
 <?php
-function connect($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
+function connect($host = "localhost", $user = "matys_baza", $password = "", $dbname = "matys_baza")
 {
     $db_h = mysqli_connect($host, $user, $password, $dbname);
     if (!$db_h)
@@ -12,12 +12,12 @@ function connect($host = "localhost", $user = "matys_baza", $password = "area543
     return $db_h;
 }
 
-function db_handler($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
+function db_handler($host = "localhost", $user = "matys_baza", $password = "", $dbname = "matys_baza")
 {
    return $db_h = mysqli_connect($host, $user, $password, $dbname); 
 }
 
-function disconnect($host = "localhost", $user = "matys_baza", $password = "area5432", $dbname = "matys_baza")
+function disconnect($host = "localhost", $user = "matys_baza", $password = "", $dbname = "matys_baza")
 {
     $db_h = mysqli_connect($host, $user, $password, $dbname);
     if (!$db_h)
